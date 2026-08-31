@@ -1,17 +1,12 @@
 # src/simulate_outcomes.py
 import pandas as pd
 import random
+from probabilities import SUCCESS_PROBABILITY
 
 random.seed(42)
 
 # rest of your code...
 
-SUCCESS_PROBABILITY = {
-    "retry_now": 0.70,      # network timeouts often self-resolve
-    "retry_later": 0.45,    # insufficient funds — decent odds after a wait
-    "send_nudge": 0.40,     # depends on customer responding
-    "mark_lost": 0.0,       # never recovered
-}
 
 def simulate_outcome(action: str) -> bool:
     prob = SUCCESS_PROBABILITY.get(action, 0.0)
