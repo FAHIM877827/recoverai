@@ -1,5 +1,10 @@
 # src/simulate_outcomes.py
+import pandas as pd
 import random
+
+random.seed(42)
+
+# rest of your code...
 
 SUCCESS_PROBABILITY = {
     "retry_now": 0.70,      # network timeouts often self-resolve
