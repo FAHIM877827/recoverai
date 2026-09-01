@@ -17,6 +17,12 @@ CUSTOMER_NAMES = [
     "Kavya Reddy", "Aditya Kumar", "Lakshmi Rao", "Sanjay Mehta", "Pooja Desai",
     "Nikhil Joshi", "Anjali Bose", "Suresh Babu", "Deepa Krishnan", "Manoj Tiwari"
 ]
+# Simulated opt-outs — deterministic for reproducible demos.
+DO_NOT_CONTACT_CUSTOMERS = {
+    "Arjun Nair",
+    "Pooja Desai",
+    "Manoj Tiwari",
+}
 
 def generate_transaction(txn_id: int) -> dict:
     failure_reason = random.choices(FAILURE_REASONS, weights=FAILURE_WEIGHTS, k=1)[0]
@@ -33,6 +39,7 @@ def generate_transaction(txn_id: int) -> dict:
         "amount": amount,
         "failure_reason": failure_reason,
         "timestamp": timestamp.strftime("%Y-%m-%d %H:%M:%S"),
+        "do_not_contact": customer_name in DO_NOT_CONTACT_CUSTOMERS,
     }
 
 def generate_dataset(num_records: int = NUM_RECORDS) -> pd.DataFrame:

@@ -5,8 +5,6 @@ from probabilities import SUCCESS_PROBABILITY
 
 random.seed(42)
 
-# rest of your code...
-
 
 def simulate_outcome(action: str) -> bool:
     prob = SUCCESS_PROBABILITY.get(action, 0.0)
@@ -33,9 +31,22 @@ REASONING = {
         "does not retry or contact the customer automatically."
     ),
 }
+# Overrides the action-based reasoning above when the policy gateway fired.
+POLICY_REASONING = {
+    "suppressed_do_not_contact": (
+        "This customer has opted out of contact, so RecoverAI marks the "
+        "transaction as lost instead of reaching out."
+    ),
+    "suppressed_retry_cap": (
+        "This customer has already reached the maximum number of automated "
+        "contact attempts, so RecoverAI stops instead of retrying indefinitely."
+    ),
+}
+
 import os
 from dotenv import load_dotenv
 from groq import Groq
+from validators import validate_message
 
 load_dotenv()
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
@@ -58,6 +69,8 @@ def build_prompt(customer_name, amount, failure_reason, channel):
         )
 
 def generate_nudge(customer_name, amount, failure_reason, channel):
+    fallback = f"Hi {customer_name}, your payment of ₹{amount} didn't go through. Please retry: [LINK]"
+
     try:
         prompt = build_prompt(customer_name, amount, failure_reason, channel)
         response = client.chat.completions.create(
@@ -68,15 +81,18 @@ def generate_nudge(customer_name, amount, failure_reason, channel):
             reasoning_effort="low",
         )
         message = response.choices[0].message.content.strip()
-        return message, "llm_generated"
-    except Exception as e:
-        fallback = f"Hi {customer_name}, your payment of ₹{amount} didn't go through. Please retry: [LINK]"
+    except Exception:
         return fallback, "template_fallback"
+
+    # Guardrail: never let an unvalidated LLM message reach a customer.
+    is_valid, reason = validate_message(message, channel)
+    if not is_valid:
+        return fallback, f"validator_rejected:{reason}"
+
+    return message, "llm_generated"
 
 
 if __name__ == "__main__":
-    import pandas as pd
-
     df = pd.read_csv("classified_transactions.csv")
 
     # Simulate outcome for every transaction
@@ -86,7 +102,13 @@ if __name__ == "__main__":
     )
 
     # Attach reasoning trace
-    df["reasoning"] = df["action"].map(REASONING)
+    df["reasoning"] = df.apply(
+    lambda r: POLICY_REASONING.get(
+        r.get("policy_note", ""),
+        REASONING.get(r["action"], "")
+    ),
+    axis=1,
+)
 
     # Generate nudge messages only for rows that need one
     def maybe_generate_nudge(row):
