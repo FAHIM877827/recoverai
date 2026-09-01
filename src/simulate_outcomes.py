@@ -1,7 +1,15 @@
 # src/simulate_outcomes.py
-import pandas as pd
+
+import os
 import random
+
+import pandas as pd
+from dotenv import load_dotenv
+from groq import Groq
+
 from probabilities import SUCCESS_PROBABILITY
+from validators import validate_message
+
 
 random.seed(42)
 
@@ -9,6 +17,7 @@ random.seed(42)
 def simulate_outcome(action: str) -> bool:
     prob = SUCCESS_PROBABILITY.get(action, 0.0)
     return random.random() < prob
+
 
 REASONING = {
     "retry_now": (
@@ -31,25 +40,29 @@ REASONING = {
         "does not retry or contact the customer automatically."
     ),
 }
+
+
 # Overrides the action-based reasoning above when the policy gateway fired.
 POLICY_REASONING = {
     "suppressed_do_not_contact": (
         "This customer has opted out of contact, so RecoverAI marks the "
         "transaction as lost instead of reaching out."
     ),
+
     "suppressed_retry_cap": (
         "This customer has already reached the maximum number of automated "
         "contact attempts, so RecoverAI stops instead of retrying indefinitely."
     ),
 }
 
-import os
-from dotenv import load_dotenv
-from groq import Groq
-from validators import validate_message
 
+# Load environment variables and initialize Groq.
 load_dotenv()
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
+client = Groq(
+    api_key=os.getenv("GROQ_API_KEY")
+)
+
 
 def build_prompt(customer_name, amount, failure_reason, channel):
     if channel == "sms":
@@ -59,6 +72,7 @@ def build_prompt(customer_name, amount, failure_reason, channel):
             f"Tone: friendly, urgent but not pushy. Include a retry link placeholder [LINK]. "
             f"Return ONLY the message text, nothing else."
         )
+
     else:
         return (
             f"Write a short recovery email (under 80 words) for a failed payment. "
@@ -68,24 +82,77 @@ def build_prompt(customer_name, amount, failure_reason, channel):
             f"Return ONLY the email body text, nothing else."
         )
 
-def generate_nudge(customer_name, amount, failure_reason, channel):
-    fallback = f"Hi {customer_name}, your payment of ₹{amount} didn't go through. Please retry: [LINK]"
+
+def generate_nudge(
+    customer_name,
+    amount,
+    failure_reason,
+    channel,
+    recovery_link,
+    policy_action,
+    do_not_contact,
+):
+    """
+    Generate a customer recovery message using Groq.
+
+    The LLM only writes the message.
+    Policy decisions are already made before this function is called.
+    """
+
+    fallback = (
+        f"Hi {customer_name}, your payment of ₹{amount} didn't go through. "
+        f"Please retry: {recovery_link}"
+    )
+
+    # Safety: never contact customers who opted out.
+    if do_not_contact:
+        return None, "blocked_opt_out"
+
+    # Safety: LLM is allowed only for SEND_NUDGE.
+    if policy_action != "send_nudge":
+        return None, "blocked_policy"
 
     try:
-        prompt = build_prompt(customer_name, amount, failure_reason, channel)
+        prompt = build_prompt(
+            customer_name,
+            amount,
+            failure_reason,
+            channel,
+        )
+
         response = client.chat.completions.create(
             model="openai/gpt-oss-20b",
-            messages=[{"role": "user", "content": prompt}],
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt,
+                }
+            ],
             max_tokens=400,
             temperature=0.7,
             reasoning_effort="low",
         )
+
         message = response.choices[0].message.content.strip()
+
+        # Replace the placeholder with the actual recovery link.
+        message = message.replace("[LINK]", recovery_link)
+
     except Exception:
+        # If the LLM fails, use deterministic fallback.
         return fallback, "template_fallback"
 
-    # Guardrail: never let an unvalidated LLM message reach a customer.
-    is_valid, reason = validate_message(message, channel)
+    # Deterministic validation before accepting the LLM message.
+    is_valid, reason = validate_message(
+        message,
+        channel,
+        customer_name,
+        amount,
+        recovery_link,
+        policy_action,
+        do_not_contact,
+    )
+
     if not is_valid:
         return fallback, f"validator_rejected:{reason}"
 
@@ -93,43 +160,122 @@ def generate_nudge(customer_name, amount, failure_reason, channel):
 
 
 if __name__ == "__main__":
+
+    # Load classified transactions.
     df = pd.read_csv("classified_transactions.csv")
 
-    # Simulate outcome for every transaction
+    # ---------------------------------------------------------
+    # 1. Simulate recovery outcome
+    # ---------------------------------------------------------
+
     df["recovered"] = df["action"].apply(simulate_outcome)
+
     df["recovered_amount"] = df.apply(
-        lambda r: r["amount"] if r["recovered"] else 0, axis=1
+        lambda r: r["amount"] if r["recovered"] else 0,
+        axis=1,
     )
 
-    # Attach reasoning trace
+    # ---------------------------------------------------------
+    # 2. Attach reasoning trace
+    # ---------------------------------------------------------
+
     df["reasoning"] = df.apply(
-    lambda r: POLICY_REASONING.get(
-        r.get("policy_note", ""),
-        REASONING.get(r["action"], "")
-    ),
-    axis=1,
-)
+        lambda r: POLICY_REASONING.get(
+            r.get("policy_note", ""),
+            REASONING.get(r["action"], ""),
+        ),
+        axis=1,
+    )
 
-    # Generate nudge messages only for rows that need one
+    # ---------------------------------------------------------
+    # 3. Generate recovery messages
+    # ---------------------------------------------------------
+
     def maybe_generate_nudge(row):
+
         if row["action"] in ["send_nudge", "retry_later"]:
-            msg, source = generate_nudge(
-                row["customer_name"], row["amount"], row["failure_reason"], row["channel"]
+
+            recovery_link = (
+                f"https://recoverai.test/pay/{row['transaction_id']}"
             )
-            return pd.Series([msg, source])
-        return pd.Series([None, None])
 
-    df[["nudge_message", "message_source"]] = df.apply(maybe_generate_nudge, axis=1)
+            msg, source = generate_nudge(
+                row["customer_name"],
+                row["amount"],
+                row["failure_reason"],
+                row["channel"],
+                recovery_link,
+                row["action"],
+                bool(row.get("do_not_contact", False)),
+            )
 
-    df.to_csv("final_transactions.csv", index=False)
+            return pd.Series(
+                [msg, source]
+            )
+
+        return pd.Series(
+            [None, None]
+        )
+
+    df[
+        ["nudge_message", "message_source"]
+    ] = df.apply(
+        maybe_generate_nudge,
+        axis=1,
+    )
+
+    # ---------------------------------------------------------
+    # 4. Save final results
+    # ---------------------------------------------------------
+
+    df.to_csv(
+        "final_transactions.csv",
+        index=False,
+    )
+
+    # ---------------------------------------------------------
+    # 5. Print recovery metrics
+    # ---------------------------------------------------------
 
     total_failed = df["amount"].sum()
-    total_recovered = df["recovered_amount"].sum()
-    recovery_rate = df["recovered"].mean() * 100
 
-    print(f"Total amount at risk: ₹{total_failed:,.2f}")
-    print(f"Total recovered: ₹{total_recovered:,.2f}")
-    print(f"Recovery rate: {recovery_rate:.1f}%")
-    print(f"\nSample nudge messages generated:")
-    sample = df[df["nudge_message"].notna()][["customer_name", "channel", "nudge_message", "message_source"]].head(3)
-    print(sample.to_string())
+    total_recovered = df["recovered_amount"].sum()
+
+    recovery_rate = (
+        df["recovered"].mean() * 100
+    )
+
+    print(
+        f"Total amount at risk: ₹{total_failed:,.2f}"
+    )
+
+    print(
+        f"Total recovered: ₹{total_recovered:,.2f}"
+    )
+
+    print(
+        f"Recovery rate: {recovery_rate:.1f}%"
+    )
+
+    # ---------------------------------------------------------
+    # 6. Print sample messages
+    # ---------------------------------------------------------
+
+    print(
+        "\nSample nudge messages generated:"
+    )
+
+    sample = df[
+        df["nudge_message"].notna()
+    ][
+        [
+            "customer_name",
+            "channel",
+            "nudge_message",
+            "message_source",
+        ]
+    ].head(3)
+
+    print(
+        sample.to_string(index=False)
+    )

@@ -1,4 +1,11 @@
 venv/
 .env
 __pycache__/
+
 *.csv
+
+!failed_transactions.csv
+!classified_transactions.csv
+!final_transactions.csv
+!final_transactions_with_baseline.csv
+!data/audit_events.csv

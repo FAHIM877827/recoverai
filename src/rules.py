@@ -1,4 +1,5 @@
 # Maps each failure reason to an action and channel
+from policy import get_policy
 
 RULES = {
     "network_timeout":    {"action": "retry_now",   "channel": "none"},
@@ -9,8 +10,26 @@ RULES = {
 }
 
 def classify(failure_reason: str) -> dict:
-    """Returns the action + channel for a given failure reason."""
-    return RULES.get(failure_reason, {"action": "mark_lost", "channel": "none"})
+    """Return the proposed action and policy metadata."""
+
+    policy = get_policy(failure_reason)
+
+    action = policy["action"]
+
+    # Determine communication channel from the proposed action
+    if action == "retry_later":
+        channel = "sms"
+    elif action == "send_nudge":
+        channel = "email"
+    else:
+        channel = "none"
+
+    return {
+        "action": action,
+        "channel": channel,
+        "reason": policy["reason"],
+        "policy_version": policy["policy_version"],
+    }
 
 # --- Policy gateway: customer-aware safety rails, applied AFTER classify() ---
 #
