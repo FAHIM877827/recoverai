@@ -26,6 +26,23 @@ AUDIT_FIELDS = [
 ]
 
 
+def event_exists(transaction_id, event_type):
+    """
+    Idempotency check: has this exact (transaction_id, event_type) pair
+    already been recorded? Used to detect duplicate webhook/event delivery
+    so the same failure isn't processed twice.
+    """
+    if not os.path.exists(AUDIT_FILE):
+        return False
+
+    with open(AUDIT_FILE, "r", newline="", encoding="utf-8") as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            if row["transaction_id"] == transaction_id and row["event_type"] == event_type:
+                return True
+    return False
+
+
 def create_audit_event(
     transaction_id,
     event_type,
@@ -72,4 +89,3 @@ def create_audit_event(
         writer.writerow(event)
 
     return event
-    

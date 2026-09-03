@@ -1,238 +1,226 @@
 transaction_id,customer_name,amount,failure_reason,timestamp,do_not_contact,action,channel,policy_note,recovered,recovered_amount,reasoning,nudge_message,message_source
-TXN0110,Vikram Singh,340.81,insufficient_funds,2026-08-22 23:24:43,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0085,Arjun Nair,2442.7,invalid_card,2026-08-23 01:16:01,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
-TXN0029,Meera Pillai,9541.78,network_timeout,2026-08-23 02:18:12,False,retry_now,none,,True,9541.78,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0058,Divya Menon,1978.99,network_timeout,2026-08-23 03:03:58,False,retry_now,none,,True,1978.99,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0092,Ananya Iyer,3348.79,insufficient_funds,2026-08-23 03:30:11,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0143,Arjun Nair,7799.14,card_expired,2026-08-23 04:01:25,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
-TXN0142,Manoj Tiwari,1760.11,fraud_blocked,2026-08-23 04:15:37,True,manual_review,none,,False,0.0,,,
-TXN0150,Sanjay Mehta,4952.0,network_timeout,2026-08-23 04:58:03,False,retry_now,none,,True,4952.0,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0126,Deepa Krishnan,3954.82,invalid_card,2026-08-23 08:30:06,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Deepa Krishnan,
+TXN0110,Vikram Singh,340.81,insufficient_funds,2026-08-24 20:02:10,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hey Vikram, your ₹340.81 payment failed due to insufficient funds. Please retry here: https://recoverai.test/pay/TXN0110 – we’re here to help!",llm_generated
+TXN0085,Arjun Nair,2442.7,bank_unavailable,2026-08-24 21:53:29,True,retry_now,none,,True,2442.7,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0029,Meera Pillai,9541.78,network_timeout,2026-08-24 22:55:39,False,retry_now,none,,True,9541.78,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0058,Divya Menon,1978.99,network_timeout,2026-08-24 23:41:26,False,retry_now,none,,True,1978.99,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0092,Ananya Iyer,3348.79,insufficient_funds,2026-08-25 00:07:38,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hi Ananya, your ₹3348.79 payment failed due to insufficient funds. Please retry here: https://recoverai.test/pay/TXN0092—let us know if you need help!",llm_generated
+TXN0143,Arjun Nair,7799.14,invalid_card,2026-08-25 00:38:52,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
+TXN0142,Manoj Tiwari,1760.11,invalid_card,2026-08-25 00:53:04,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
+TXN0150,Sanjay Mehta,4952.0,network_timeout,2026-08-25 01:35:30,False,retry_now,none,,True,4952.0,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0126,Deepa Krishnan,3954.82,invalid_card,2026-08-25 05:07:33,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Deepa Krishnan,
 
-We attempted to charge ₹3954.82 for your order, but the payment failed due to an invalid card. Please update your payment details to complete the transaction.
+We tried to process your payment of ₹3954.82 but it was declined due to an invalid card. Please update your payment details and try again using the link below.
 
-https://recoverai.test/pay/TXN0126",llm_generated
-TXN0072,Karthik Raj,3062.85,fraud_blocked,2026-08-23 10:12:48,False,manual_review,none,,False,0.0,,,
-TXN0033,Karthik Raj,4936.2,network_timeout,2026-08-23 12:34:22,False,retry_now,none,,True,4936.2,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0038,Divya Menon,6104.28,network_timeout,2026-08-23 12:37:02,False,retry_now,none,,True,6104.28,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0053,Ananya Iyer,245.1,network_timeout,2026-08-23 13:13:42,False,retry_now,none,,True,245.1,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0098,Anjali Bose,4415.97,insufficient_funds,2026-08-23 13:25:06,False,retry_later,sms,,True,4415.97,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0032,Anjali Bose,1698.34,network_timeout,2026-08-23 15:07:05,False,retry_now,none,,True,1698.34,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0082,Rahul Verma,3709.05,insufficient_funds,2026-08-23 19:48:52,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0113,Priya Sharma,6593.97,insufficient_funds,2026-08-23 21:19:05,False,retry_later,sms,,True,6593.97,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0069,Aditya Kumar,1410.32,network_timeout,2026-08-24 00:08:57,False,retry_now,none,,True,1410.32,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0030,Karthik Raj,5125.05,fraud_blocked,2026-08-24 02:37:55,False,manual_review,none,,False,0.0,,,
-TXN0026,Suresh Babu,2588.0,network_timeout,2026-08-24 04:58:10,False,retry_now,none,,True,2588.0,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0043,Rahul Verma,766.26,insufficient_funds,2026-08-24 05:14:38,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0089,Rahul Verma,3886.16,card_expired,2026-08-24 05:29:39,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Rahul Verma,
-
-We attempted to process your payment of ₹3886.16, but the transaction failed because the card on file has expired. Please update your payment details and try again: https://recoverai.test/pay/TXN0089.
-
-Thank you for your prompt attention.",llm_generated
-TXN0128,Lakshmi Rao,3581.41,insufficient_funds,2026-08-24 06:43:44,False,retry_later,sms,,True,3581.41,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0118,Manoj Tiwari,8924.12,invalid_card,2026-08-24 15:57:18,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
-TXN0008,Meera Pillai,3504.16,network_timeout,2026-08-24 17:50:45,False,retry_now,none,,False,0.0,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0087,Sanjay Mehta,7844.63,invalid_card,2026-08-24 19:01:12,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Sanjay Mehta,
-
-We tried to process your payment of ₹7844.63, but it failed due to an invalid card. Please update your payment details and try again. Click here to retry: https://recoverai.test/pay/TXN0087.
-
-Thank you for your prompt attention.",llm_generated
-TXN0129,Suresh Babu,4247.31,invalid_card,2026-08-24 19:35:17,False,send_nudge,email,,True,4247.31,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Suresh Babu,
-
-We tried to process your payment of ₹4247.31, but it was declined due to an invalid card. Please update your payment details and retry the transaction.
-
-https://recoverai.test/pay/TXN0129",llm_generated
-TXN0147,Karthik Raj,6873.16,insufficient_funds,2026-08-24 20:27:43,False,retry_later,sms,,True,6873.16,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0024,Arjun Nair,1184.53,insufficient_funds,2026-08-24 21:27:27,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
-TXN0138,Ananya Iyer,2318.8,invalid_card,2026-08-25 00:03:38,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Hi Ananya Iyer, your payment of ₹2318.8 didn't go through. Please retry: https://recoverai.test/pay/TXN0138",validator_rejected:amount_mismatch
-TXN0011,Vikram Singh,552.66,card_expired,2026-08-25 02:01:12,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Vikram Singh,
-
-Your recent payment of ₹552.66 could not be processed because the card on file has expired. Please update your card details and try again. Click the link below to complete the payment securely.
-
-https://recoverai.test/pay/TXN0011",llm_generated
-TXN0036,Suresh Babu,784.2,network_timeout,2026-08-25 03:45:22,False,retry_now,none,,False,0.0,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0005,Priya Sharma,2853.09,network_timeout,2026-08-25 05:26:34,False,retry_now,none,,True,2853.09,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0027,Suresh Babu,7234.15,insufficient_funds,2026-08-25 07:20:45,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0084,Manoj Tiwari,8758.66,network_timeout,2026-08-25 07:40:55,True,retry_now,none,,True,8758.66,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0073,Karthik Raj,1241.74,insufficient_funds,2026-08-25 09:22:35,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0078,Arjun Nair,9799.0,insufficient_funds,2026-08-25 09:39:40,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
-TXN0131,Lakshmi Rao,3426.68,insufficient_funds,2026-08-25 13:45:11,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0074,Divya Menon,2888.39,insufficient_funds,2026-08-25 15:19:46,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0042,Ananya Iyer,2279.15,insufficient_funds,2026-08-25 17:40:29,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0141,Pooja Desai,9481.79,insufficient_funds,2026-08-25 19:41:06,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
-TXN0146,Karthik Raj,6308.7,card_expired,2026-08-25 20:13:49,False,send_nudge,email,,True,6308.7,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Hi Karthik Raj, your payment of ₹6308.7 didn't go through. Please retry: https://recoverai.test/pay/TXN0146",validator_rejected:amount_mismatch
-TXN0093,Lakshmi Rao,6449.67,insufficient_funds,2026-08-26 00:28:20,False,retry_later,sms,,True,6449.67,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0103,Lakshmi Rao,6681.8,insufficient_funds,2026-08-26 01:00:01,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0057,Suresh Babu,7331.0,card_expired,2026-08-26 04:42:27,False,send_nudge,email,,True,7331.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Hi Suresh Babu, your payment of ₹7331.0 didn't go through. Please retry: https://recoverai.test/pay/TXN0057",validator_rejected:amount_mismatch
-TXN0107,Arjun Nair,5159.62,card_expired,2026-08-26 05:25:56,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
-TXN0052,Rahul Verma,5547.22,invalid_card,2026-08-26 07:02:30,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0100,Kavya Reddy,6674.95,insufficient_funds,2026-08-26 13:59:57,False,retry_later,sms,,True,6674.95,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0014,Ananya Iyer,2742.08,insufficient_funds,2026-08-26 17:21:54,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0025,Lakshmi Rao,727.92,network_timeout,2026-08-26 20:32:36,False,retry_now,none,,True,727.92,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0117,Suresh Babu,5357.21,network_timeout,2026-08-26 20:38:53,False,retry_now,none,,True,5357.21,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0041,Priya Sharma,732.86,insufficient_funds,2026-08-26 22:21:45,False,retry_later,sms,,True,732.86,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0010,Aditya Kumar,6322.53,insufficient_funds,2026-08-27 00:59:31,False,retry_later,sms,,True,6322.53,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0045,Deepa Krishnan,9360.59,insufficient_funds,2026-08-27 01:15:57,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0144,Rohan Gupta,353.22,insufficient_funds,2026-08-27 01:21:55,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0102,Rohan Gupta,3328.21,card_expired,2026-08-27 06:29:51,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Rohan Gupta,
-
-We attempted to process your payment of ₹3328.21, but it failed because the card on file has expired. Please update your payment details and retry the transaction.
-
-https://recoverai.test/pay/TXN0102",llm_generated
-TXN0080,Sneha Patel,6940.09,invalid_card,2026-08-27 08:36:53,False,send_nudge,email,,True,6940.09,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Sneha Patel,
-
-We tried to charge your card for ₹6940.09, but the payment failed due to an invalid card. Please update your payment details and try again. Click the link below to complete the transaction:
-
-https://recoverai.test/pay/TXN0080",llm_generated
-TXN0068,Ananya Iyer,9960.35,invalid_card,2026-08-27 10:31:27,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0132,Manoj Tiwari,9202.46,invalid_card,2026-08-27 11:22:01,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
-TXN0064,Deepa Krishnan,6606.99,insufficient_funds,2026-08-27 14:05:19,False,retry_later,sms,,True,6606.99,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0101,Rohan Gupta,1332.79,card_expired,2026-08-27 17:50:50,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Rohan Gupta,
-
-We attempted to process your payment of ₹1332.79, but the transaction failed because your card has expired. Please update your card details and try again.
-
-https://recoverai.test/pay/TXN0101",llm_generated
-TXN0075,Meera Pillai,6377.96,insufficient_funds,2026-08-27 18:15:30,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0112,Lakshmi Rao,2023.91,card_expired,2026-08-27 20:54:22,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0121,Anjali Bose,6411.85,insufficient_funds,2026-08-27 23:15:12,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0054,Nikhil Joshi,1745.48,invalid_card,2026-08-28 00:01:50,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Nikhil Joshi,
-
-Your recent payment of ₹1745.48 was declined due to an invalid card. Please update your card details to complete the transaction. Click the link below to retry: https://recoverai.test/pay/TXN0054
+https://recoverai.test/pay/TXN0126
 
 Thank you for your prompt attention.
 
 Best regards,",llm_generated
-TXN0140,Sneha Patel,1607.59,insufficient_funds,2026-08-28 01:54:07,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0015,Arjun Nair,7317.36,insufficient_funds,2026-08-28 04:36:51,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
-TXN0067,Priya Sharma,9362.77,invalid_card,2026-08-28 05:34:05,False,send_nudge,email,,True,9362.77,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Priya Sharma,
+TXN0072,Karthik Raj,3062.85,invalid_card,2026-08-25 06:50:15,False,send_nudge,email,,True,3062.85,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Karthik Raj,
 
-Your payment of ₹9362.77 could not be processed because the card details were invalid. Please update your card information and try again.
+We tried to process your payment of ₹3062.85, but it was declined due to an invalid card. Please update your card details and retry the transaction by clicking the link below.
 
-Click here to retry: https://recoverai.test/pay/TXN0067",llm_generated
-TXN0066,Rohan Gupta,6748.73,network_timeout,2026-08-28 05:49:21,False,retry_now,none,,True,6748.73,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0040,Anjali Bose,3795.86,card_expired,2026-08-28 07:11:59,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Anjali Bose,
+https://recoverai.test/pay/TXN0072",llm_generated
+TXN0033,Karthik Raj,4936.2,card_expired,2026-08-25 09:11:49,False,send_nudge,email,,True,4936.2,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Hi Karthik Raj, your payment of ₹4936.2 didn't go through. Please retry: https://recoverai.test/pay/TXN0033",validator_rejected:amount_mismatch
+TXN0038,Divya Menon,6104.28,card_expired,2026-08-25 09:14:29,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Divya Menon,
 
-We tried to process your payment of ₹3795.86, but the transaction failed because your card has expired. Please update your card details and retry the payment. Click here: https://recoverai.test/pay/TXN0040 to complete the transaction. Let us know if you need assistance.
+We attempted to process your payment of ₹6104.28, but the transaction failed because your card has expired. Please update your payment details and retry the payment by clicking the link below.
 
-Best regards,",llm_generated
-TXN0119,Suresh Babu,4323.73,invalid_card,2026-08-28 08:32:14,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0051,Ananya Iyer,8756.41,network_timeout,2026-08-28 09:12:18,False,retry_now,none,,False,0.0,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0106,Pooja Desai,6580.59,network_timeout,2026-08-28 09:31:40,True,retry_now,none,,False,0.0,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0070,Arjun Nair,3757.32,invalid_card,2026-08-28 10:23:32,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
-TXN0096,Kavya Reddy,3521.3,network_timeout,2026-08-28 10:49:19,False,retry_now,none,,False,0.0,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0130,Meera Pillai,4932.47,invalid_card,2026-08-28 10:57:21,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Meera Pillai,
+https://recoverai.test/pay/TXN0038",llm_generated
+TXN0053,Ananya Iyer,245.1,card_expired,2026-08-25 09:51:09,False,send_nudge,email,,True,245.1,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Hi Ananya Iyer, your payment of ₹245.1 didn't go through. Please retry: https://recoverai.test/pay/TXN0053",validator_rejected:amount_mismatch
+TXN0098,Anjali Bose,4415.97,insufficient_funds,2026-08-25 10:02:34,False,retry_later,sms,,True,4415.97,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hi Anjali, your payment of ₹4415.97 failed due to insufficient funds. Please retry here: https://recoverai.test/pay/TXN0098",llm_generated
+TXN0032,Anjali Bose,1698.34,network_timeout,2026-08-25 11:44:32,False,retry_now,none,,True,1698.34,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0082,Rahul Verma,3709.05,insufficient_funds,2026-08-25 16:26:20,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hey Rahul, your ₹3709.05 payment failed due to insufficient funds. Please try again quickly: https://recoverai.test/pay/TXN0082 🚀",llm_generated
+TXN0113,Priya Sharma,6593.97,insufficient_funds,2026-08-25 17:56:32,False,retry_later,sms,,True,6593.97,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hi Priya, your ₹6593.97 payment failed due to insufficient funds. Please retry quickly: https://recoverai.test/pay/TXN0113 – thanks for your prompt action!",llm_generated
+TXN0069,Aditya Kumar,1410.32,card_expired,2026-08-25 20:46:24,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Aditya Kumar,
 
-Your recent payment of ₹4932.47 could not be processed due to an invalid card. Please update your payment details and try again.  
+We attempted to process your payment of ₹1410.32, but the transaction failed because your card has expired. Please update your payment details and retry the payment at your convenience.
 
-Click here to retry: https://recoverai.test/pay/TXN0130",llm_generated
-TXN0028,Rohan Gupta,3466.74,fraud_blocked,2026-08-28 11:12:46,False,manual_review,none,,False,0.0,,,
-TXN0105,Divya Menon,3107.36,invalid_card,2026-08-28 12:23:00,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Divya Menon,
+https://recoverai.test/pay/TXN0069",llm_generated
+TXN0030,Karthik Raj,5125.05,invalid_card,2026-08-25 23:15:22,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Karthik Raj,
 
-Your recent payment of ₹3107.36 could not be processed due to an invalid card. Please update your payment details and try again.
+We attempted to process your payment of ₹5125.05, but it was declined due to an invalid card. Please update your payment details and try again.  
 
-Click here to retry: https://recoverai.test/pay/TXN0105",llm_generated
-TXN0081,Sneha Patel,5865.84,invalid_card,2026-08-28 12:24:28,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Sneha Patel,
+https://recoverai.test/pay/TXN0030",llm_generated
+TXN0026,Suresh Babu,2588.0,network_timeout,2026-08-26 01:35:37,False,retry_now,none,,True,2588.0,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0043,Rahul Verma,766.26,insufficient_funds,2026-08-26 01:52:06,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hi Rahul, your ₹766.26 payment failed due to insufficient funds. Please retry quickly: https://recoverai.test/pay/TXN0043 – Thanks!",llm_generated
+TXN0089,Rahul Verma,3886.16,invalid_card,2026-08-26 02:07:06,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Rahul Verma,
 
-We tried to process your ₹5865.84 payment, but it was declined due to an invalid card. Please update your card details and retry the payment.  
+We tried to process your payment of ₹3886.16 but it was declined due to an invalid card. Please update your payment details and try again.
+
+Click here to retry: https://recoverai.test/pay/TXN0089",llm_generated
+TXN0128,Lakshmi Rao,3581.41,insufficient_funds,2026-08-26 03:21:11,False,retry_later,sms,,True,3581.41,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hi Lakshmi, your ₹3581.41 payment failed due to insufficient funds. Please retry soon: https://recoverai.test/pay/TXN0128 – thanks!",llm_generated
+TXN0118,Manoj Tiwari,8924.12,customer_cancelled,2026-08-26 12:34:45,True,mark_lost,none,,False,0.0,"This transaction is blocked for security reasons, so RecoverAI does not retry or contact the customer automatically.",,
+TXN0008,Meera Pillai,3504.16,network_timeout,2026-08-26 14:28:12,False,retry_now,none,,False,0.0,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0087,Sanjay Mehta,7844.63,bank_unavailable,2026-08-26 15:38:39,False,retry_now,none,,True,7844.63,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0129,Suresh Babu,4247.31,customer_cancelled,2026-08-26 16:12:44,False,mark_lost,none,,False,0.0,"This transaction is blocked for security reasons, so RecoverAI does not retry or contact the customer automatically.",,
+TXN0147,Karthik Raj,6873.16,network_timeout,2026-08-26 17:05:10,False,retry_now,none,,True,6873.16,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0024,Arjun Nair,1184.53,insufficient_funds,2026-08-26 18:04:54,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
+TXN0138,Ananya Iyer,2318.8,customer_cancelled,2026-08-26 20:41:05,False,mark_lost,none,,False,0.0,"This transaction is blocked for security reasons, so RecoverAI does not retry or contact the customer automatically.",,
+TXN0011,Vikram Singh,552.66,invalid_card,2026-08-26 22:38:39,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Vikram Singh,
+
+We attempted to process your payment of ₹552.66, but it was declined due to an invalid card. Please update your card details and try again.  
+https://recoverai.test/pay/TXN0011
+
+Thank you for your prompt attention.",llm_generated
+TXN0036,Suresh Babu,784.2,network_timeout,2026-08-27 00:22:50,False,retry_now,none,,False,0.0,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0005,Priya Sharma,2853.09,network_timeout,2026-08-27 02:04:01,False,retry_now,none,,True,2853.09,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0027,Suresh Babu,7234.15,insufficient_funds,2026-08-27 03:58:12,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hi Suresh Babu, your payment of ₹7234.15 failed due to insufficient funds. Please retry quickly: https://recoverai.test/pay/TXN0027",llm_generated
+TXN0084,Manoj Tiwari,8758.66,card_expired,2026-08-27 04:18:22,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
+TXN0073,Karthik Raj,1241.74,insufficient_funds,2026-08-27 06:00:03,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
+TXN0078,Arjun Nair,9799.0,insufficient_funds,2026-08-27 06:17:07,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
+TXN0131,Lakshmi Rao,3426.68,insufficient_funds,2026-08-27 10:22:38,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hi Lakshmi, your payment of ₹3426.68 failed due to insufficient funds. Please retry quickly: https://recoverai.test/pay/TXN0131 Thanks!",llm_generated
+TXN0074,Divya Menon,2888.39,insufficient_funds,2026-08-27 11:57:14,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hi Divya, your payment of ₹2888.39 failed due to insufficient funds. Please retry soon: https://recoverai.test/pay/TXN0074",llm_generated
+TXN0042,Ananya Iyer,2279.15,insufficient_funds,2026-08-27 14:17:56,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hi Ananya, your payment of ₹2279.15 failed due to insufficient funds. Please retry here: https://recoverai.test/pay/TXN0042 – thanks! 🚀",llm_generated
+TXN0141,Pooja Desai,9481.79,insufficient_funds,2026-08-27 16:18:33,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
+TXN0146,Karthik Raj,6308.7,fraud_blocked,2026-08-27 16:51:16,False,manual_review,none,,False,0.0,"Fraud or risk signals require human judgment, so RecoverAI flags this transaction for review instead of deciding automatically.",,
+TXN0093,Lakshmi Rao,6449.67,insufficient_funds,2026-08-27 21:05:47,False,retry_later,sms,,True,6449.67,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hi Lakshmi, your payment of ₹6449.67 failed due to insufficient funds. Please retry here: https://recoverai.test/pay/TXN0093 to complete the transaction. Thanks!",llm_generated
+TXN0103,Lakshmi Rao,6681.8,insufficient_funds,2026-08-27 21:37:28,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
+TXN0057,Suresh Babu,7331.0,fraud_blocked,2026-08-28 01:19:54,False,manual_review,none,,False,0.0,"Fraud or risk signals require human judgment, so RecoverAI flags this transaction for review instead of deciding automatically.",,
+TXN0107,Arjun Nair,5159.62,fraud_blocked,2026-08-28 02:03:23,True,manual_review,none,,False,0.0,"Fraud or risk signals require human judgment, so RecoverAI flags this transaction for review instead of deciding automatically.",,
+TXN0052,Rahul Verma,5547.22,bank_unavailable,2026-08-28 03:39:57,False,retry_now,none,,True,5547.22,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0100,Kavya Reddy,6674.95,insufficient_funds,2026-08-28 10:37:24,False,retry_later,sms,,True,6674.95,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hi Kavya, your payment of ₹6674.95 failed due to insufficient funds. Please retry quickly: https://recoverai.test/pay/TXN0100 Thanks!",llm_generated
+TXN0014,Ananya Iyer,2742.08,insufficient_funds,2026-08-28 13:59:21,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
+TXN0025,Lakshmi Rao,727.92,network_timeout,2026-08-28 17:10:03,False,retry_now,none,,True,727.92,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0117,Suresh Babu,5357.21,network_timeout,2026-08-28 17:16:20,False,retry_now,none,,True,5357.21,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0041,Priya Sharma,732.86,insufficient_funds,2026-08-28 18:59:12,False,retry_later,sms,,True,732.86,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hi Priya, your payment of ₹732.86 failed due to insufficient funds. Please retry quickly: https://recoverai.test/pay/TXN0041 Thanks!",llm_generated
+TXN0010,Aditya Kumar,6322.53,insufficient_funds,2026-08-28 21:36:58,False,retry_later,sms,,True,6322.53,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hi Aditya Kumar, your ₹6322.53 payment failed due to insufficient funds. Please retry soon: https://recoverai.test/pay/TXN0010",llm_generated
+TXN0045,Deepa Krishnan,9360.59,insufficient_funds,2026-08-28 21:53:24,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hi Deepa, your payment of ₹9360.59 failed due to insufficient funds. Please retry quickly: https://recoverai.test/pay/TXN0045",llm_generated
+TXN0144,Rohan Gupta,353.22,insufficient_funds,2026-08-28 21:59:22,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hi Rohan, your ₹353.22 payment failed due to insufficient funds. Please retry quickly: https://recoverai.test/pay/TXN0144 – Thanks!",llm_generated
+TXN0102,Rohan Gupta,3328.21,fraud_blocked,2026-08-29 03:07:18,False,manual_review,none,,False,0.0,"Fraud or risk signals require human judgment, so RecoverAI flags this transaction for review instead of deciding automatically.",,
+TXN0080,Sneha Patel,6940.09,bank_unavailable,2026-08-29 05:14:21,False,retry_now,none,,True,6940.09,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0068,Ananya Iyer,9960.35,customer_cancelled,2026-08-29 07:08:54,False,mark_lost,none,,False,0.0,"This transaction is blocked for security reasons, so RecoverAI does not retry or contact the customer automatically.",,
+TXN0132,Manoj Tiwari,9202.46,invalid_card,2026-08-29 07:59:28,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
+TXN0064,Deepa Krishnan,6606.99,insufficient_funds,2026-08-29 10:42:46,False,retry_later,sms,,True,6606.99,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hi Deepa, your recent payment of ₹6606.99 didn't go through due to insufficient funds. Please retry here: https://recoverai.test/pay/TXN0064 – thanks!",llm_generated
+TXN0101,Rohan Gupta,1332.79,fraud_blocked,2026-08-29 14:28:17,False,manual_review,none,,False,0.0,"Fraud or risk signals require human judgment, so RecoverAI flags this transaction for review instead of deciding automatically.",,
+TXN0075,Meera Pillai,6377.96,insufficient_funds,2026-08-29 14:52:57,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hi Meera Pillai, your payment of ₹6377.96 didn't go through. Please retry: https://recoverai.test/pay/TXN0075",validator_rejected:empty_message
+TXN0112,Lakshmi Rao,2023.91,card_expired,2026-08-29 17:31:49,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
+TXN0121,Anjali Bose,6411.85,insufficient_funds,2026-08-29 19:52:39,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hi Anjali, your payment of ₹6411.85 failed due to insufficient funds. Please retry here: https://recoverai.test/pay/TXN0121 to complete the transaction. Thanks!",llm_generated
+TXN0054,Nikhil Joshi,1745.48,invalid_card,2026-08-29 20:39:17,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Nikhil Joshi,
+
+We tried to process your payment of ₹1745.48, but the transaction failed due to an invalid card. Please update your payment details and try again.  
+https://recoverai.test/pay/TXN0054",llm_generated
+TXN0140,Sneha Patel,1607.59,insufficient_funds,2026-08-29 22:31:34,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hi Sneha, your payment of ₹1607.59 failed due to insufficient funds. Please retry soon: https://recoverai.test/pay/TXN0140 – thank you!",llm_generated
+TXN0015,Arjun Nair,7317.36,insufficient_funds,2026-08-30 01:14:18,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
+TXN0067,Priya Sharma,9362.77,bank_unavailable,2026-08-30 02:11:32,False,retry_now,none,,True,9362.77,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0066,Rohan Gupta,6748.73,network_timeout,2026-08-30 02:26:48,False,retry_now,none,,True,6748.73,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0040,Anjali Bose,3795.86,fraud_blocked,2026-08-30 03:49:26,False,manual_review,none,,False,0.0,"Fraud or risk signals require human judgment, so RecoverAI flags this transaction for review instead of deciding automatically.",,
+TXN0119,Suresh Babu,4323.73,bank_unavailable,2026-08-30 05:09:41,False,retry_now,none,,True,4323.73,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0051,Ananya Iyer,8756.41,network_timeout,2026-08-30 05:49:46,False,retry_now,none,,False,0.0,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0106,Pooja Desai,6580.59,card_expired,2026-08-30 06:09:07,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
+TXN0070,Arjun Nair,3757.32,bank_unavailable,2026-08-30 07:00:59,True,retry_now,none,,True,3757.32,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0096,Kavya Reddy,3521.3,card_expired,2026-08-30 07:26:46,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Hi Kavya Reddy, your payment of ₹3521.3 didn't go through. Please retry: https://recoverai.test/pay/TXN0096",validator_rejected:amount_mismatch
+TXN0130,Meera Pillai,4932.47,bank_unavailable,2026-08-30 07:34:48,False,retry_now,none,,True,4932.47,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0028,Rohan Gupta,3466.74,invalid_card,2026-08-30 07:50:13,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Rohan Gupta,
+
+Your recent payment of ₹3466.74 could not be processed because the card details were invalid. Please update your payment information and try again. You can do this securely via the link below:
+
+https://recoverai.test/pay/TXN0028",llm_generated
+TXN0105,Divya Menon,3107.36,invalid_card,2026-08-30 09:00:27,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Divya Menon,
+
+We attempted to charge ₹3107.36 for your order, but the payment failed due to an invalid card. Please update your payment details and retry the transaction.  
+https://recoverai.test/pay/TXN0105",llm_generated
+TXN0081,Sneha Patel,5865.84,invalid_card,2026-08-30 09:01:55,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Sneha Patel,
+
+Your recent payment of ₹5,865.84 failed due to an invalid card. Please update your card details and retry the payment.
 
 https://recoverai.test/pay/TXN0081",llm_generated
-TXN0148,Suresh Babu,505.58,network_timeout,2026-08-28 12:44:45,False,retry_now,none,,True,505.58,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0004,Suresh Babu,5655.33,card_expired,2026-08-28 14:52:18,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0111,Pooja Desai,7707.04,card_expired,2026-08-28 16:05:26,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
-TXN0047,Sanjay Mehta,4366.41,insufficient_funds,2026-08-28 16:53:31,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0104,Rohan Gupta,6192.6,invalid_card,2026-08-28 18:05:54,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0039,Rohan Gupta,6928.69,fraud_blocked,2026-08-28 19:47:54,False,manual_review,none,,False,0.0,,,
-TXN0127,Deepa Krishnan,8817.5,insufficient_funds,2026-08-29 00:15:54,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0012,Karthik Raj,8566.65,invalid_card,2026-08-29 00:19:34,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0007,Ananya Iyer,3431.29,invalid_card,2026-08-29 00:22:26,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0055,Arjun Nair,9033.18,invalid_card,2026-08-29 00:36:11,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
-TXN0013,Arjun Nair,8356.69,network_timeout,2026-08-29 02:42:47,True,retry_now,none,,True,8356.69,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0099,Divya Menon,7221.36,network_timeout,2026-08-29 04:08:36,False,retry_now,none,,True,7221.36,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0022,Lakshmi Rao,8987.45,network_timeout,2026-08-29 04:40:38,False,retry_now,none,,True,8987.45,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0083,Karthik Raj,2569.34,insufficient_funds,2026-08-29 06:40:25,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0090,Pooja Desai,8183.21,insufficient_funds,2026-08-29 07:38:19,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
-TXN0135,Kavya Reddy,2194.44,network_timeout,2026-08-29 10:33:23,False,retry_now,none,,True,2194.44,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0108,Manoj Tiwari,6671.15,insufficient_funds,2026-08-29 11:06:41,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
-TXN0077,Priya Sharma,2838.13,network_timeout,2026-08-29 11:30:11,False,retry_now,none,,False,0.0,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0056,Pooja Desai,2724.51,invalid_card,2026-08-29 23:05:48,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
-TXN0021,Suresh Babu,7474.39,insufficient_funds,2026-08-30 04:29:55,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0120,Pooja Desai,8627.8,insufficient_funds,2026-08-30 05:21:02,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
-TXN0136,Sanjay Mehta,2853.74,invalid_card,2026-08-30 07:00:41,False,send_nudge,email,,True,2853.74,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Sanjay Mehta,
+TXN0148,Suresh Babu,505.58,card_expired,2026-08-30 09:22:12,False,send_nudge,email,,True,505.58,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Suresh Babu,
 
-Your payment of ₹2853.74 could not be processed because the card details were invalid. Please update your payment information and try again. Click here to retry: https://recoverai.test/pay/TXN0136",llm_generated
-TXN0049,Karthik Raj,8024.87,card_expired,2026-08-30 07:52:44,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0001,Meera Pillai,346.61,card_expired,2026-08-30 08:46:57,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Meera Pillai,
+We attempted to charge your account for ₹505.58, but the payment failed because the card on file has expired. To complete your purchase, please update your card details and try again by clicking the link below.
 
-Your payment of ₹346.61 failed because the card on file has expired. Please update your payment information and retry the transaction. You can do so here: https://recoverai.test/pay/TXN0001.
+https://recoverai.test/pay/TXN0148
+
+Thank you for your prompt attention. If you need assistance, feel free to reply to this email.",llm_generated
+TXN0004,Suresh Babu,5655.33,card_expired,2026-08-30 11:29:45,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Suresh Babu,
+
+We attempted to process your payment of ₹5,655.33, but it was declined because the card has expired. Please update your payment details and retry the transaction. Click the link below to complete the payment securely.
+
+https://recoverai.test/pay/TXN0004",llm_generated
+TXN0111,Pooja Desai,7707.04,card_expired,2026-08-30 12:42:53,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
+TXN0047,Sanjay Mehta,4366.41,insufficient_funds,2026-08-30 13:30:58,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hi Sanjay, your payment of ₹4366.41 failed due to insufficient funds. Please retry here: https://recoverai.test/pay/TXN0047 – Thanks!",llm_generated
+TXN0104,Rohan Gupta,6192.6,bank_unavailable,2026-08-30 14:43:22,False,retry_now,none,,False,0.0,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0039,Rohan Gupta,6928.69,invalid_card,2026-08-30 16:25:21,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Rohan Gupta,
+
+We tried to process your payment of ₹6928.69, but it was declined due to an invalid card. Please update your payment details and try again. Click the link below to retry securely.
+
+https://recoverai.test/pay/TXN0039",llm_generated
+TXN0127,Deepa Krishnan,8817.5,insufficient_funds,2026-08-30 20:53:21,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
+TXN0012,Karthik Raj,8566.65,customer_cancelled,2026-08-30 20:57:01,False,mark_lost,none,,False,0.0,"This transaction is blocked for security reasons, so RecoverAI does not retry or contact the customer automatically.",,
+TXN0007,Ananya Iyer,3431.29,customer_cancelled,2026-08-30 20:59:53,False,mark_lost,none,,False,0.0,"This transaction is blocked for security reasons, so RecoverAI does not retry or contact the customer automatically.",,
+TXN0055,Arjun Nair,9033.18,bank_unavailable,2026-08-30 21:13:38,True,retry_now,none,,True,9033.18,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0013,Arjun Nair,8356.69,network_timeout,2026-08-30 23:20:14,True,retry_now,none,,True,8356.69,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0099,Divya Menon,7221.36,card_expired,2026-08-31 00:46:03,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
+TXN0022,Lakshmi Rao,8987.45,card_expired,2026-08-31 01:18:06,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
+TXN0083,Karthik Raj,2569.34,insufficient_funds,2026-08-31 03:17:52,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
+TXN0090,Pooja Desai,8183.21,insufficient_funds,2026-08-31 04:15:46,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
+TXN0135,Kavya Reddy,2194.44,network_timeout,2026-08-31 07:10:50,False,retry_now,none,,True,2194.44,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0108,Manoj Tiwari,6671.15,insufficient_funds,2026-08-31 07:44:08,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
+TXN0077,Priya Sharma,2838.13,network_timeout,2026-08-31 08:07:38,False,retry_now,none,,False,0.0,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0056,Pooja Desai,2724.51,customer_cancelled,2026-08-31 19:43:15,True,mark_lost,none,,False,0.0,"This transaction is blocked for security reasons, so RecoverAI does not retry or contact the customer automatically.",,
+TXN0021,Suresh Babu,7474.39,insufficient_funds,2026-09-01 01:07:22,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
+TXN0120,Pooja Desai,8627.8,insufficient_funds,2026-09-01 01:58:29,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
+TXN0136,Sanjay Mehta,2853.74,bank_unavailable,2026-09-01 03:38:08,False,retry_now,none,,True,2853.74,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0049,Karthik Raj,8024.87,invalid_card,2026-09-01 04:30:11,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
+TXN0001,Meera Pillai,346.61,fraud_blocked,2026-09-01 05:24:24,False,manual_review,none,,False,0.0,"Fraud or risk signals require human judgment, so RecoverAI flags this transaction for review instead of deciding automatically.",,
+TXN0034,Rohan Gupta,8332.49,bank_unavailable,2026-09-01 06:42:44,False,retry_now,none,,True,8332.49,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0065,Kavya Reddy,2121.17,bank_unavailable,2026-09-01 06:53:46,False,retry_now,none,,True,2121.17,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0122,Rohan Gupta,4453.74,insufficient_funds,2026-09-01 07:54:08,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
+TXN0003,Divya Menon,393.99,network_timeout,2026-09-01 08:20:32,False,retry_now,none,,True,393.99,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0017,Rahul Verma,7705.3,network_timeout,2026-09-01 09:12:33,False,retry_now,none,,True,7705.3,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0109,Rohan Gupta,7535.27,invalid_card,2026-09-01 10:16:01,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
+TXN0016,Suresh Babu,9260.37,insufficient_funds,2026-09-01 11:28:23,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
+TXN0114,Sanjay Mehta,8865.11,bank_unavailable,2026-09-01 11:39:32,False,retry_now,none,,False,0.0,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0044,Nikhil Joshi,2455.25,insufficient_funds,2026-09-01 12:45:50,False,retry_later,sms,,True,2455.25,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",Hey Nikhil! Your payment of ₹2455.25 failed due to insufficient funds. Please retry soon: https://recoverai.test/pay/TXN0044 🚀,llm_generated
+TXN0019,Kavya Reddy,5714.08,bank_unavailable,2026-09-01 13:09:01,False,retry_now,none,,True,5714.08,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0139,Vikram Singh,7565.91,fraud_blocked,2026-09-01 16:20:03,False,manual_review,none,,False,0.0,"Fraud or risk signals require human judgment, so RecoverAI flags this transaction for review instead of deciding automatically.",,
+TXN0031,Manoj Tiwari,6424.6,insufficient_funds,2026-09-01 16:26:31,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
+TXN0046,Sanjay Mehta,4781.43,insufficient_funds,2026-09-01 18:28:56,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hey Sanjay, your ₹4781.43 payment failed due to insufficient funds. Please retry soon: https://recoverai.test/pay/TXN0046 – thanks!",llm_generated
+TXN0097,Deepa Krishnan,1243.89,customer_cancelled,2026-09-01 18:33:42,False,mark_lost,none,,False,0.0,"This transaction is blocked for security reasons, so RecoverAI does not retry or contact the customer automatically.",,
+TXN0050,Sanjay Mehta,4540.27,insufficient_funds,2026-09-01 20:08:37,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hi Sanjay, your ₹4540.27 payment failed due to insufficient funds. Please retry here: https://recoverai.test/pay/TXN0050 – thanks for your prompt action! 😊",llm_generated
+TXN0086,Priya Sharma,8825.02,invalid_card,2026-09-01 21:08:03,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Priya Sharma,
+
+We tried to process your payment of ₹8825.02, but it was declined due to an invalid card. Please update your payment details and retry.  
+
+https://recoverai.test/pay/TXN0086",llm_generated
+TXN0037,Suresh Babu,4804.3,insufficient_funds,2026-09-02 00:33:01,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
+TXN0088,Meera Pillai,8125.42,bank_unavailable,2026-09-02 01:58:24,False,retry_now,none,,False,0.0,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0060,Anjali Bose,5077.22,card_expired,2026-09-02 02:23:49,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Anjali Bose,
+
+Your recent payment of ₹5077.22 was declined because the card on file has expired. To complete the transaction, please update your payment details and retry.
+
+Click here: https://recoverai.test/pay/TXN0060 to securely enter a new card and finish the purchase.
 
 Thank you for your prompt attention.",llm_generated
-TXN0034,Rohan Gupta,8332.49,invalid_card,2026-08-30 10:05:17,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0065,Kavya Reddy,2121.17,invalid_card,2026-08-30 10:16:19,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Kavya Reddy,
+TXN0006,Meera Pillai,4282.88,insufficient_funds,2026-09-02 02:51:56,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hi Meera, your ₹4282.88 payment failed due to insufficient funds. Please retry here: https://recoverai.test/pay/TXN0006 – we're here to help!",llm_generated
+TXN0020,Pooja Desai,8857.36,network_timeout,2026-09-02 05:53:29,True,retry_now,none,,True,8857.36,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0123,Ananya Iyer,8939.97,network_timeout,2026-09-02 06:58:15,False,retry_now,none,,True,8939.97,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0116,Pooja Desai,8497.53,insufficient_funds,2026-09-02 08:10:46,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
+TXN0062,Lakshmi Rao,8631.01,insufficient_funds,2026-09-02 11:24:28,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
+TXN0094,Priya Sharma,3377.38,invalid_card,2026-09-02 12:29:55,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
+TXN0079,Priya Sharma,4333.1,card_expired,2026-09-02 13:19:51,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
+TXN0076,Rahul Verma,9089.77,insufficient_funds,2026-09-02 18:01:45,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
+TXN0023,Nikhil Joshi,1468.48,customer_cancelled,2026-09-02 18:21:45,False,mark_lost,none,,False,0.0,"This transaction is blocked for security reasons, so RecoverAI does not retry or contact the customer automatically.",,
+TXN0002,Suresh Babu,1113.7,insufficient_funds,2026-09-02 19:18:55,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
+TXN0035,Ananya Iyer,5715.83,insufficient_funds,2026-09-02 19:37:26,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
+TXN0133,Priya Sharma,5958.74,bank_unavailable,2026-09-02 20:02:00,False,retry_now,none,,False,0.0,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0009,Lakshmi Rao,5407.66,invalid_card,2026-09-02 21:16:07,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
+TXN0145,Divya Menon,3814.54,bank_unavailable,2026-09-02 21:56:30,False,retry_now,none,,True,3814.54,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0061,Arjun Nair,892.1,customer_cancelled,2026-09-02 23:44:08,True,mark_lost,none,,False,0.0,"This transaction is blocked for security reasons, so RecoverAI does not retry or contact the customer automatically.",,
+TXN0018,Meera Pillai,3221.99,insufficient_funds,2026-09-03 00:17:44,False,retry_later,sms,,False,0.0,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.","Hi Meera, your payment of ₹3221.99 failed due to insufficient funds. Please retry quickly: https://recoverai.test/pay/TXN0018 – thanks!",llm_generated
+TXN0124,Divya Menon,6969.1,insufficient_funds,2026-09-03 00:45:57,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
+TXN0125,Sanjay Mehta,5470.85,network_timeout,2026-09-03 01:14:13,False,retry_now,none,,True,5470.85,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0048,Karthik Raj,635.29,bank_unavailable,2026-09-03 01:38:01,False,retry_now,none,,True,635.29,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0059,Kavya Reddy,5466.73,card_expired,2026-09-03 02:27:40,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Kavya Reddy,
 
-We attempted to charge ₹2121.17 but the transaction failed due to an invalid card. Please update your payment details and retry the payment by clicking the link below.
+We tried to process your ₹5466.73 payment, but it failed because your card has expired. Please update your payment details and try again.
 
-https://recoverai.test/pay/TXN0065",llm_generated
-TXN0122,Rohan Gupta,4453.74,insufficient_funds,2026-08-30 11:16:41,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0003,Divya Menon,393.99,network_timeout,2026-08-30 11:43:04,False,retry_now,none,,True,393.99,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0017,Rahul Verma,7705.3,insufficient_funds,2026-08-30 12:35:06,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0109,Rohan Gupta,7535.27,fraud_blocked,2026-08-30 13:38:34,False,manual_review,none,,False,0.0,,,
-TXN0016,Suresh Babu,9260.37,insufficient_funds,2026-08-30 14:50:56,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0114,Sanjay Mehta,8865.11,invalid_card,2026-08-30 15:02:05,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0044,Nikhil Joshi,2455.25,insufficient_funds,2026-08-30 16:08:23,False,retry_later,sms,,True,2455.25,"Insufficient funds may resolve after 24-48 hours, so waiting before retrying gives the customer time to add funds.",,blocked_policy
-TXN0019,Kavya Reddy,5714.08,invalid_card,2026-08-30 16:31:34,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Kavya Reddy,
-
-We attempted to process your payment of ₹5714.08, but it was declined due to an invalid card. Please update your payment details and retry the transaction. Click here to update: https://recoverai.test/pay/TXN0019
-
-Thank you for your prompt attention.
-
-Best regards,",llm_generated
-TXN0139,Vikram Singh,7565.91,card_expired,2026-08-30 19:42:36,False,send_nudge,email,,True,7565.91,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Vikram Singh,
-
-We attempted to charge ₹7,565.91 to your card, but the transaction failed because the card has expired. Please update your payment details to keep your subscription active. Click the link below to enter a new card:
-
-https://recoverai.test/pay/TXN0139
-
-Thank you for your prompt attention.",llm_generated
-TXN0031,Manoj Tiwari,6424.6,insufficient_funds,2026-08-30 19:49:04,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
-TXN0046,Sanjay Mehta,4781.43,insufficient_funds,2026-08-30 21:51:29,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0097,Deepa Krishnan,1243.89,invalid_card,2026-08-30 21:56:15,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0050,Sanjay Mehta,4540.27,insufficient_funds,2026-08-30 23:31:10,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0086,Priya Sharma,8825.02,fraud_blocked,2026-08-31 00:30:36,False,manual_review,none,,False,0.0,,,
-TXN0037,Suresh Babu,4804.3,insufficient_funds,2026-08-31 03:55:34,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0088,Meera Pillai,8125.42,invalid_card,2026-08-31 05:20:56,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0060,Anjali Bose,5077.22,network_timeout,2026-08-31 05:46:22,False,retry_now,none,,True,5077.22,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0006,Meera Pillai,4282.88,insufficient_funds,2026-08-31 06:14:29,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0020,Pooja Desai,8857.36,network_timeout,2026-08-31 09:16:02,True,retry_now,none,,True,8857.36,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0123,Ananya Iyer,8939.97,insufficient_funds,2026-08-31 10:20:48,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0116,Pooja Desai,8497.53,insufficient_funds,2026-08-31 11:33:18,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
-TXN0062,Lakshmi Rao,8631.01,insufficient_funds,2026-08-31 14:47:01,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0094,Priya Sharma,3377.38,invalid_card,2026-08-31 15:52:28,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0079,Priya Sharma,4333.1,network_timeout,2026-08-31 16:42:24,False,retry_now,none,,False,0.0,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0076,Rahul Verma,9089.77,insufficient_funds,2026-08-31 21:24:18,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0023,Nikhil Joshi,1468.48,invalid_card,2026-08-31 21:44:18,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Nikhil Joshi,
-
-We attempted to process your payment of ₹1468.48, but it was declined due to an invalid card. Please update your payment details and try again.  
-https://recoverai.test/pay/TXN0023",llm_generated
-TXN0002,Suresh Babu,1113.7,insufficient_funds,2026-08-31 22:41:28,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0035,Ananya Iyer,5715.83,insufficient_funds,2026-08-31 22:59:59,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0133,Priya Sharma,5958.74,invalid_card,2026-08-31 23:24:33,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0009,Lakshmi Rao,5407.66,card_expired,2026-09-01 00:38:40,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0145,Divya Menon,3814.54,invalid_card,2026-09-01 01:19:02,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Dear Divya Menon,
-
-We attempted to charge ₹3,814.54 to your card, but the transaction failed due to an invalid card. Please update your payment details and try again. Click the link below to complete the payment securely.
-
-https://recoverai.test/pay/TXN0145",llm_generated
-TXN0061,Arjun Nair,892.1,invalid_card,2026-09-01 03:06:41,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
-TXN0018,Meera Pillai,3221.99,insufficient_funds,2026-09-01 03:40:16,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0124,Divya Menon,6969.1,insufficient_funds,2026-09-01 04:08:30,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0125,Sanjay Mehta,5470.85,network_timeout,2026-09-01 04:36:46,False,retry_now,none,,True,5470.85,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0048,Karthik Raj,635.29,invalid_card,2026-09-01 05:00:34,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0059,Kavya Reddy,5466.73,network_timeout,2026-09-01 05:50:13,False,retry_now,none,,True,5466.73,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0137,Suresh Babu,290.89,insufficient_funds,2026-09-01 07:03:21,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0134,Arjun Nair,8680.83,network_timeout,2026-09-01 07:29:17,True,retry_now,none,,False,0.0,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0115,Pooja Desai,6988.53,fraud_blocked,2026-09-01 07:30:15,True,manual_review,none,,False,0.0,,,
-TXN0063,Manoj Tiwari,2536.53,invalid_card,2026-09-01 10:01:07,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
-TXN0095,Meera Pillai,1866.82,invalid_card,2026-09-01 10:22:29,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
-TXN0091,Vikram Singh,8725.1,fraud_blocked,2026-09-01 13:52:37,False,manual_review,none,,False,0.0,,,
-TXN0149,Kavya Reddy,5108.01,network_timeout,2026-09-01 16:31:12,False,retry_now,none,,True,5108.01,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
-TXN0071,Anjali Bose,3093.92,network_timeout,2026-09-01 17:40:44,False,retry_now,none,,True,3093.92,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+Click here to update: https://recoverai.test/pay/TXN0059",llm_generated
+TXN0137,Suresh Babu,290.89,insufficient_funds,2026-09-03 03:40:49,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,
+TXN0134,Arjun Nair,8680.83,network_timeout,2026-09-03 04:06:45,True,retry_now,none,,False,0.0,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0115,Pooja Desai,6988.53,invalid_card,2026-09-03 04:07:42,True,mark_lost,none,suppressed_do_not_contact,False,0.0,"This customer has opted out of contact, so RecoverAI marks the transaction as lost instead of reaching out.",,
+TXN0063,Manoj Tiwari,2536.53,bank_unavailable,2026-09-03 06:38:34,True,retry_now,none,,True,2536.53,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0095,Meera Pillai,1866.82,customer_cancelled,2026-09-03 06:59:56,False,mark_lost,none,,False,0.0,"This transaction is blocked for security reasons, so RecoverAI does not retry or contact the customer automatically.",,
+TXN0091,Vikram Singh,8725.1,invalid_card,2026-09-03 10:30:04,False,send_nudge,email,,False,0.0,"This payment requires customer action, so sending a personalized message is more effective than automatically retrying.","Hi Vikram Singh, your payment of ₹8725.1 didn't go through. Please retry: https://recoverai.test/pay/TXN0091",validator_rejected:amount_mismatch
+TXN0149,Kavya Reddy,5108.01,network_timeout,2026-09-03 13:08:39,False,retry_now,none,,True,5108.01,"Network timeouts are often temporary, so an immediate retry can recover the payment without customer intervention.",,
+TXN0071,Anjali Bose,3093.92,card_expired,2026-09-03 14:18:11,False,mark_lost,none,suppressed_retry_cap,False,0.0,"This customer has already reached the maximum number of automated contact attempts, so RecoverAI stops instead of retrying indefinitely.",,

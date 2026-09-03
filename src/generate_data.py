@@ -8,8 +8,8 @@ random.seed(42)
 # --- Config ---
 NUM_RECORDS = 150
 
-FAILURE_REASONS = ["insufficient_funds", "network_timeout", "card_expired", "fraud_blocked", "invalid_card"]
-FAILURE_WEIGHTS = [0.35, 0.25, 0.15, 0.08, 0.17]  # must sum to 1.0
+FAILURE_REASONS = ["insufficient_funds", "network_timeout", "card_expired", "fraud_blocked", "invalid_card", "bank_unavailable", "customer_cancelled"]
+FAILURE_WEIGHTS = [0.30, 0.20, 0.13, 0.07, 0.15, 0.10, 0.05]  # must sum to 1.0
 
 CUSTOMER_NAMES = [
     "Priya Sharma", "Rahul Verma", "Ananya Iyer", "Karthik Raj", "Sneha Patel",

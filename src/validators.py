@@ -75,8 +75,8 @@ def validate_message(
     if not message or not message.strip():
         return False, "empty_message"
 
-    # 2. Policy must explicitly allow a nudge
-    if policy_action != "send_nudge":
+    # 2. Policy must explicitly allow a customer-facing recovery message
+    if policy_action not in ("send_nudge", "retry_later"):
         return False, "policy_action_not_allowed"
 
     # 3. Customer opt-out

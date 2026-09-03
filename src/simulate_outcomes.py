@@ -9,6 +9,7 @@ from groq import Groq
 
 from probabilities import SUCCESS_PROBABILITY
 from validators import validate_message
+from audit import create_audit_event, event_exists
 
 
 random.seed(42)
@@ -39,10 +40,15 @@ REASONING = {
         "This transaction is blocked for security reasons, so RecoverAI "
         "does not retry or contact the customer automatically."
     ),
+
+    "manual_review": (
+        "Fraud or risk signals require human judgment, so RecoverAI flags "
+        "this transaction for review instead of deciding automatically."
+    ),
 }
 
 
-# Overrides the action-based reasoning above when the policy gateway fired.
+# Overrides the action-based reasoning when the policy gateway fired.
 POLICY_REASONING = {
     "suppressed_do_not_contact": (
         "This customer has opted out of contact, so RecoverAI marks the "
@@ -56,16 +62,14 @@ POLICY_REASONING = {
 }
 
 
-# Load environment variables and initialize Groq.
+# Load environment variables.
 load_dotenv()
-
-client = Groq(
-    api_key=os.getenv("GROQ_API_KEY")
-)
 
 
 def build_prompt(customer_name, amount, failure_reason, channel):
+
     if channel == "sms":
+
         return (
             f"Write an SMS under 150 characters for a failed payment recovery. "
             f"Customer: {customer_name}, Amount: ₹{amount}, Reason: {failure_reason}. "
@@ -74,6 +78,7 @@ def build_prompt(customer_name, amount, failure_reason, channel):
         )
 
     else:
+
         return (
             f"Write a short recovery email (under 80 words) for a failed payment. "
             f"Customer: {customer_name}, Amount: ₹{amount}, Reason: {failure_reason}. "
@@ -108,11 +113,16 @@ def generate_nudge(
     if do_not_contact:
         return None, "blocked_opt_out"
 
-    # Safety: LLM is allowed only for SEND_NUDGE.
-    if policy_action != "send_nudge":
+    # Safety: LLM is only allowed for customer-contact actions.
+    if policy_action not in ("send_nudge", "retry_later"):
         return None, "blocked_policy"
 
     try:
+
+        client = Groq(
+            api_key=os.getenv("GROQ_API_KEY")
+        )
+
         prompt = build_prompt(
             customer_name,
             amount,
@@ -135,10 +145,11 @@ def generate_nudge(
 
         message = response.choices[0].message.content.strip()
 
-        # Replace the placeholder with the actual recovery link.
+        # Replace placeholder with actual recovery link.
         message = message.replace("[LINK]", recovery_link)
 
     except Exception:
+
         # If the LLM fails, use deterministic fallback.
         return fallback, "template_fallback"
 
@@ -161,14 +172,19 @@ def generate_nudge(
 
 if __name__ == "__main__":
 
-    # Load classified transactions.
+    # ---------------------------------------------------------
+    # Load classified transactions
+    # ---------------------------------------------------------
+
     df = pd.read_csv("classified_transactions.csv")
 
     # ---------------------------------------------------------
     # 1. Simulate recovery outcome
     # ---------------------------------------------------------
 
-    df["recovered"] = df["action"].apply(simulate_outcome)
+    df["recovered"] = df["action"].apply(
+        simulate_outcome
+    )
 
     df["recovered_amount"] = df.apply(
         lambda r: r["amount"] if r["recovered"] else 0,
@@ -196,7 +212,8 @@ if __name__ == "__main__":
         if row["action"] in ["send_nudge", "retry_later"]:
 
             recovery_link = (
-                f"https://recoverai.test/pay/{row['transaction_id']}"
+                f"https://recoverai.test/pay/"
+                f"{row['transaction_id']}"
             )
 
             msg, source = generate_nudge(
@@ -225,7 +242,49 @@ if __name__ == "__main__":
     )
 
     # ---------------------------------------------------------
-    # 4. Save final results
+    # 4. Log recovery outcomes
+    # ---------------------------------------------------------
+    #
+    # Every transaction gets exactly one RECOVERY_OUTCOME event.
+    #
+    # event_exists() prevents duplicate outcome events if the
+    # simulator is run again.
+
+    for _, row in df.iterrows():
+
+        txn_id = row["transaction_id"]
+
+        # Idempotency:
+        # Do not create another outcome event for the same transaction.
+        if event_exists(
+            txn_id,
+            "RECOVERY_OUTCOME",
+        ):
+            continue
+
+        outcome_state = (
+            "RECOVERED"
+            if row["recovered"]
+            else "UNRESOLVED"
+        )
+
+        create_audit_event(
+            transaction_id=txn_id,
+            event_type="RECOVERY_OUTCOME",
+            to_state=outcome_state,
+            proposed_action=row["action"],
+            final_action=row["action"],
+            reason=(
+                "Payment recovered successfully."
+                if row["recovered"]
+                else "Recovery attempt did not recover the payment."
+            ),
+            actor="recoverai_simulator",
+            correlation_id=f"RECOVERY_{txn_id}",
+        )
+
+    # ---------------------------------------------------------
+    # 5. Save final results
     # ---------------------------------------------------------
 
     df.to_csv(
@@ -234,7 +293,7 @@ if __name__ == "__main__":
     )
 
     # ---------------------------------------------------------
-    # 5. Print recovery metrics
+    # 6. Print recovery metrics
     # ---------------------------------------------------------
 
     total_failed = df["amount"].sum()
@@ -258,7 +317,7 @@ if __name__ == "__main__":
     )
 
     # ---------------------------------------------------------
-    # 6. Print sample messages
+    # 7. Print sample messages
     # ---------------------------------------------------------
 
     print(

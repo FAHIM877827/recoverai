@@ -15,7 +15,15 @@ st.set_page_config(
 # LOAD DATA
 # --------------------------------------------------
 
-df = pd.read_csv("final_transactions_with_baseline.csv")
+try:
+    df = pd.read_csv("final_transactions_with_baseline.csv")
+except FileNotFoundError:
+    st.error(
+        "No results found. Run the pipeline first: "
+        "generate_data.py → classify_transactions.py → "
+        "simulate_outcomes.py → baseline_comparison.py"
+    )
+    st.stop()
 
 # --------------------------------------------------
 # METRICS
@@ -46,6 +54,12 @@ st.markdown(
     </div>
     """,
     unsafe_allow_html=True
+)
+
+st.warning(
+    "⚠️ Simulated results. Recovery outcomes are generated from prototype "
+    "success-probability assumptions, not measured real-world Razorpay data. "
+    "See README for methodology."
 )
 
 st.divider()
@@ -163,14 +177,22 @@ st.header("Transaction Recovery Decisions")
 filter_col1, filter_col2, filter_col3 = st.columns(3)
 
 with filter_col1:
-    actions = ["All"] + sorted(df["action"].dropna().unique().tolist())
-    selected_action = st.selectbox("Recovery Action", actions)
+    actions = ["All"] + sorted(
+        df["action"].dropna().unique().tolist()
+    )
+    selected_action = st.selectbox(
+        "Recovery Action",
+        actions
+    )
 
 with filter_col2:
     reasons = ["All"] + sorted(
         df["failure_reason"].dropna().unique().tolist()
     )
-    selected_reason = st.selectbox("Failure Reason", reasons)
+    selected_reason = st.selectbox(
+        "Failure Reason",
+        reasons
+    )
 
 with filter_col3:
     result = st.selectbox(
@@ -232,8 +254,10 @@ st.divider()
 
 st.header("AI Recovery Messages")
 
-messages = df[
-    df["nudge_message"].notna()
+# Use filtered_df so the message panel respects
+# the filters selected above.
+messages = filtered_df[
+    filtered_df["nudge_message"].notna()
 ].copy()
 
 for _, row in messages.head(5).iterrows():

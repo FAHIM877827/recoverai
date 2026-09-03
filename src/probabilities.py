@@ -16,8 +16,11 @@ SUCCESS_PROBABILITY = {
 
 NAIVE_SUCCESS_PROBABILITY = {
     "network_timeout": 0.65,
+    "bank_unavailable": 0.65,   # same reasoning as network_timeout — a transient
+                                # infra failure a blind immediate retry can still catch
     "insufficient_funds": 0.15,
     "card_expired": 0.00,
     "invalid_card": 0.00,
     "fraud_blocked": 0.00,
+    "customer_cancelled": 0.00, # a blind retry cannot undo a voluntary cancellation
 }

@@ -1,16 +1,11 @@
 import pandas as pd
+from probabilities import NAIVE_SUCCESS_PROBABILITY
 import random
 
 random.seed(42)
 
 # Naive baseline: retry everything once, immediately, no smart routing
-NAIVE_SUCCESS_PROBABILITY = {
-    "network_timeout":    0.70,  # immediate retry works fine here regardless
-    "insufficient_funds": 0.15,  # retried too soon, funds likely still not there
-    "card_expired":       0.00,  # retry alone can't fix an expired card
-    "invalid_card":       0.00,  # same — needs actual customer action
-    "fraud_blocked":      0.00,  # naive doesn't know to skip, fails anyway
-}
+
 
 def simulate_naive_outcome(failure_reason: str) -> bool:
     prob = NAIVE_SUCCESS_PROBABILITY.get(failure_reason, 0.0)
