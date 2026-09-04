@@ -1,6 +1,15 @@
 import streamlit as st
 import pandas as pd
 
+from razorpay_live_demo import (
+    create_live_demo_link,
+    check_and_update_status,
+    get_latest_audit_event,
+    new_demo_transaction_id,
+    LINK_CREATED_EVENT,
+    STATUS_CHECKED_EVENT,
+)
+
 # --------------------------------------------------
 # PAGE CONFIG
 # --------------------------------------------------
@@ -313,6 +322,60 @@ with design_col2:
         • Messages are generated only when customer communication is appropriate
         """
     )
+
+st.divider()
+
+# --------------------------------------------------
+# LIVE RAZORPAY TEST RECOVERY
+# --------------------------------------------------
+
+st.header("Live Razorpay Test Recovery")
+
+st.info(
+    "This section calls the real Razorpay Test Mode API for a single demo "
+    "payment link. It is completely separate from the 150-transaction "
+    "simulation above -- it does NOT affect Recovered Revenue, Recovery "
+    "Rate, Incremental Revenue, or the naive baseline shown earlier."
+)
+
+if "live_demo_transaction_id" not in st.session_state:
+    st.session_state.live_demo_transaction_id = None
+
+if st.session_state.live_demo_transaction_id is None:
+
+    if st.button("Create Live Test Payment Link"):
+        new_txn_id = new_demo_transaction_id()
+        create_live_demo_link(new_txn_id)
+        check_and_update_status(new_txn_id)
+        st.session_state.live_demo_transaction_id = new_txn_id
+        st.rerun()
+
+else:
+
+    live_txn_id = st.session_state.live_demo_transaction_id
+
+    link_event = get_latest_audit_event(live_txn_id, LINK_CREATED_EVENT)
+    latest_status_event = get_latest_audit_event(live_txn_id, STATUS_CHECKED_EVENT)
+
+    short_url = link_event["final_action"] if link_event else None
+    current_status = (
+        latest_status_event["to_state"] if latest_status_event else "unknown"
+    )
+    last_checked = (
+        latest_status_event["timestamp"] if latest_status_event else "never"
+    )
+
+    st.write(f"**Transaction ID:** {live_txn_id}")
+
+    if short_url:
+        st.write(f"**Payment link:** {short_url}")
+
+    st.write(f"**Current status:** {current_status}")
+    st.caption(f"Last checked: {last_checked}")
+
+    if st.button("Refresh Payment Status"):
+        check_and_update_status(live_txn_id)
+        st.rerun()
 
 st.divider()
 
