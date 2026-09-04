@@ -43,6 +43,8 @@ recoverai/
 │   ├── rules.py                # failure reason → action/channel rules
 │   ├── classify_transactions.py # applies rules to full dataset
 │   ├── simulate_outcomes.py    # outcome simulation + LLM nudge generation
+│   ├── razorpay_poc.py         # standalone Razorpay Test Mode Payment Links PoC
+│   ├── razorpay_live_demo.py   # dashboard-integrated live payment link + status refresh
 │   └── dashboard.py            # Streamlit app (Day 2-3)
 ├── .env                        # GROQ_API_KEY (not committed)
 ├── .gitignore
@@ -110,17 +112,28 @@ Every classifier decision also comes with a plain-English **reasoning trace** (e
 
 *(Add Streamlit dashboard link/screenshot + link to 5-min pitch video once ready)*
 
+### Live Razorpay Test Recovery
+
+The dashboard includes a standalone "Live Razorpay Test Recovery" section that creates a **real Razorpay Test Mode Payment Link** for a single demo transaction — a genuine API call to Razorpay, not a simulation.
+
+This is completely isolated from the 150-transaction batch above: it does not affect Recovered Revenue, Recovery Rate, Incremental Revenue, or the naive baseline comparison shown in the Results table. It reads and writes only its own audit trail (`LIVE_RAZORPAY_DEMO_LINK_CREATED` / `LIVE_RAZORPAY_DEMO_STATUS_CHECKED` events, keyed off `LIVE-DEMO-*` transaction IDs), never the simulated batch's data.
+
+It was verified end-to-end with an actual test payment: clicking "Create Live Test Payment Link" creates a real link and logs its `created` status; a genuine Razorpay test-mode bank payment was then completed manually in a browser; clicking "Refresh Payment Status" re-queried Razorpay live, and the audit trail shows the real `created` → `paid` transition.
+
+- `src/razorpay_poc.py` — the initial standalone proof-of-concept: loads test-mode credentials, validates the `rzp_test_` key prefix, and creates one payment link via the REST API.
+- `src/razorpay_live_demo.py` — the dashboard-integrated version: same link creation, plus audit logging (`create_audit_event`) and a repeatable `check_and_update_status()` function that the dashboard's "Refresh Payment Status" button calls to re-check the live status on demand.
+
 ---
 
 ## 🗺️ Production Roadmap — Razorpay Payment Links Integration
 
 The current pipeline simulates recovery outcomes with probability assumptions (see `probabilities.py`) rather than calling a real payment gateway. Wiring in real Razorpay **Test Mode** Payment Links is the next step post-submission, planned as a single, narrow integration rather than a rework of the existing decision logic:
 
-- **One integration point, at the existing gate.** Razorpay Payment Link creation plugs into `simulate_outcomes.py` at the point where a message is already about to be generated — i.e., only when `action` is `send_nudge` or `retry_later` *and* `do_not_contact` is `False`. This is the same choke point `generate_nudge()` already uses; the integration does not add a second, parallel eligibility check.
+- **Proven at single-transaction scale; not yet wired into the batch.** A real Razorpay Test Mode Payment Link has already been created and tracked end-to-end — see "Live Razorpay Test Recovery" above — including a genuine `created` → `paid` status transition confirmed via a real test payment. This lives entirely in `src/razorpay_live_demo.py`, outside `simulate_outcomes.py`, and covers exactly one demo transaction at a time. What's still roadmap: wiring this same link-creation-and-status-check pattern into `simulate_outcomes.py` at the existing `send_nudge`/`retry_later` + `do_not_contact` gate (the same choke point `generate_nudge()` already uses) so all 150 batch transactions get real payment links instead of one demo transaction, and replacing `SUCCESS_PROBABILITY`'s simulated random draw with each transaction's real Razorpay status at scale.
 - **Real outcome instead of a simulated probability.** Once a real payment link exists, whether a transaction is `recovered` should come from the Razorpay link's actual status (paid / expired / cancelled), not from `SUCCESS_PROBABILITY`'s random draw — a real link with a fabricated "recovered" result would make the audit trail dishonest.
 - **Idempotent by construction.** Link creation reuses the same `event_exists()` guard pattern `audit.py` already uses for `FAILED_PAYMENT_RECEIVED` / `RECOVERY_OUTCOME`, so a re-run never creates a duplicate payment link for the same transaction. Razorpay's `reference_id` is set to `transaction_id` so it dedupes on their side too.
 - **Test-mode enforced, not assumed.** The integration checks that `RAZORPAY_KEY_ID` starts with `rzp_test_` and refuses to run otherwise — this repo has no other safeguard against accidentally using live keys.
 - **No changes to the decision logic.** `policy.py` and `rules.py` stay exactly as they are — they already own the eligibility/contact-cap rails, and Razorpay only needs to consume their output (`action`, `channel`), not duplicate it.
 - **Secrets handling.** `RAZORPAY_KEY_ID`/`RAZORPAY_KEY_SECRET` load via `.env`, the same way `GROQ_API_KEY` does today; never logged to `audit_events.csv`.
 
-This is documented here as a plan only — not implemented in this submission.
+The single-transaction proof above is implemented; wiring it into the full batch pipeline remains a plan only — not implemented in this submission.
