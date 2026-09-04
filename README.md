@@ -1,139 +1,87 @@
-# RecoverAI — AI-Powered Failed Payment Recovery Agent
+# RecoverAI
 
-**Razorpay AI Buildathon 2026 — Track 3: AI Revenue Recovery**
+## AI-Powered Failed Payment Recovery Agent
 
-RecoverAI ingests a batch of failed payment transactions, classifies why each one failed, decides the right recovery action, executes it (simulated), and reports measurable ₹ recovered — compared against a naive baseline.
+**Razorpay AI Buildathon 2026 — Track 03: AI Revenue Recovery**
 
----
+RecoverAI identifies why a payment failed, applies a deterministic recovery policy, validates safety before contacting a customer, personalizes communication only where generative AI adds value, and measures recovered revenue against a naive retry baseline. A real Razorpay Test Mode execution path proves the design works beyond simulation.
 
-## 🎯 Problem Taste — Why This Matters
+## Headline Result
 
-When a customer's payment fails — expired card, insufficient funds, a network timeout — that revenue is usually lost for good. Most merchants have no systematic way to win it back: failures go unretried, customers never get nudged, and money quietly disappears.
+| Metric | Naive Baseline | RecoverAI |
+|---|---:|---:|
+| Total at risk | ₹7,51,199.28 | ₹7,51,199.28 |
+| Recovered | ₹1,80,282.49 (24.0%) | ₹2,23,121.11 (31.3%) |
 
-RecoverAI turns this into a measurable recovery pipeline instead of a silent loss.
+**+₹42,838.62 recovered, +7.3 percentage points over blind retry-everything.**
 
-**The headline result:**
-> Out of ₹751,199.28 in failed payments, RecoverAI recovered ₹223,121.11 — a 31.3% recovery rate, compared to ₹180,282.49 (24.0%) from a naive retry-everything-once approach.
+Results are from a reproducible, fixed-seed simulation over 150 synthetic failed transactions — not production payment data.
 
----
+## The Problem
 
-## 🏗️ Build Quality — Architecture & How to Run It
+Not every failed payment deserves the same response. A network timeout is worth an instant retry. Insufficient funds needs a later retry and a reminder. An expired card needs the customer to act. A fraud-blocked payment should never be retried blindly.
 
-**Architecture:**
+Treating every failure identically causes two losses: blind retries waste attempts and annoy customers, while no action at all leaves recoverable revenue on the table. RecoverAI replaces guesswork with a controlled, auditable recovery workflow.
 
-```
-Synthetic Failed Transactions
-        ↓
-Rules-Based Classifier (failure reason → action + channel)
-        ↓
-Outcome Simulator (probability-based recovery outcome)
-        ↓
-Groq LLM (personalized nudge messages — only where needed)
-        ↓
-Streamlit Dashboard (metrics, comparison, live simulator)
-```
+## How It Works
 
-**Tech stack:** Python, pandas, Groq API (`openai/gpt-oss-20b`), Streamlit
+- **Failure Classifier** — deterministic rules map each failure reason to a candidate action
+- **Policy Gateway** — enforces do-not-contact, contact caps, and fraud restrictions before anything executes
+- **Safety Validators** — checks generated messages for correctness and unsafe content before sending
+- **Groq LLM** — writes the customer-facing message only; never decides the action or whether to contact
+- **Execution** — simulated for the 150-transaction batch; a real Razorpay Test Mode path proves live execution
+- **Audit Trail** — every decision, suppression, and outcome logged with idempotency, so reruns never duplicate events
 
-**Project structure:**
-```
-recoverai/
-├── src/
-│   ├── generate_data.py       # synthetic failed transaction generator
-│   ├── rules.py                # failure reason → action/channel rules
-│   ├── classify_transactions.py # applies rules to full dataset
-│   ├── simulate_outcomes.py    # outcome simulation + LLM nudge generation
-│   ├── razorpay_poc.py         # standalone Razorpay Test Mode Payment Links PoC
-│   ├── razorpay_live_demo.py   # dashboard-integrated live payment link + status refresh
-│   └── dashboard.py            # Streamlit app (Day 2-3)
-├── .env                        # GROQ_API_KEY (not committed)
-├── .gitignore
-└── README.md
-```
+## Where AI Is Used — and Where It Deliberately Isn't
 
-**How to run:**
-```bash
-python -m venv venv
-venv\Scripts\activate          # Windows
-pip install pandas groq python-dotenv streamlit
-# Add your GROQ_API_KEY to a .env file
-python src/generate_data.py
-python src/classify_transactions.py
-python src/simulate_outcomes.py
-streamlit run src/dashboard.py
-```
+| Decision Authority | Why |
+|---|---|
+| Which recovery action to take — **Deterministic policy** | Predictable and auditable |
+| Whether to contact the customer — **Policy gateway** | Enforces opt-outs & fraud limits |
+| Is the generated content safe — **Validators** | Blocks unsafe or invalid output |
+| Wording of the message — **Groq LLM** | Personalization is generative |
+| What happens if the LLM fails — **Deterministic fallback** | Recovery keeps running regardless |
 
-*(Update once dashboard.py exists — Day 2-3)*
+**Policy decides. Validators enforce. The LLM communicates. Audit records.**
 
----
+## Recovery Decision Model
 
-## 🧠 AI Judgment — Where We Used AI, and Where We Deliberately Didn't
+| Failure Reason | Action | Customer Contact |
+|---|---|---|
+| network_timeout / bank_unavailable | Retry now | No |
+| insufficient_funds | Retry later | SMS |
+| card_expired / invalid_card | Send nudge | Email |
+| fraud_blocked | Manual review | No |
+| customer_cancelled | Mark lost | No |
 
-We split decisions between **deterministic rules** and **generative AI**, based on which each task actually needed:
+## Live Razorpay Test Mode Proof
 
-- **Rules, not AI:** Deciding *which action* to take for a given failure reason (retry now / retry later / send nudge / mark lost) is deterministic and needs to be predictable and auditable — so it's plain if/else logic, not an LLM call. This also means `fraud_blocked` transactions are **never** auto-retried or messaged, by design — a hardcoded safety boundary, not something we'd trust an LLM to decide case-by-case.
-- **LLM, not rules:** Writing a *personalized nudge message* is inherently generative — tone, phrasing, and content need to adapt per customer. This is the one place we used Groq's `openai/gpt-oss-20b` model.
+Beyond the simulated batch, RecoverAI includes a real, verified execution path — not just a plan.
 
-Every classifier decision also comes with a plain-English **reasoning trace** (e.g., *"Network timeouts resolve automatically ~70% of the time — retrying immediately avoids unnecessary customer friction"*), so the agent's logic is inspectable, not a black box.
+- Dashboard creates a genuine Razorpay Test Mode Payment Link via the live API
+- A real test payment was completed manually in a browser
+- Refreshing the dashboard re-queried Razorpay and confirmed the transition: **created → paid**
+- Enforces the `rzp_test_` key prefix — refuses to run against live credentials
 
----
+This proves the integration point works end-to-end at single-transaction scale; extending it to the full batch is the next roadmap step.
 
-## 🛠️ Failure Recovery — What Broke, and What We Did About It
+## Failure Recovery — What Broke, and What We Did
 
-1. **Groq model deprecation mid-build:** `llama-3.1-8b-instant` (originally used) was deprecated by Groq on June 17, 2026. Diagnosed via the actual API error message, confirmed the replacement (`openai/gpt-oss-20b`) via Groq's documentation, and migrated without losing existing working code.
+- Groq deprecated the model mid-build (`llama-3.1-8b-instant`) — diagnosed from the live API error and migrated to `openai/gpt-oss-20b` without touching the surrounding architecture
+- The new model then returned empty messages — a reasoning model was consuming its token budget internally; fixed with higher `max_tokens` and `reasoning_effort="low"`
+- Built a deterministic template fallback so a Groq outage never blocks recovery processing
+- Caught a stale-numbers discrepancy before submission — committed output files didn't match a fresh pipeline run — traced it and corrected the real, reproducible figures
+- Found and fixed a Windows Unicode console crash, and a "shadow constant" bug where two files silently duplicated the same safety limit
 
-2. **Silent empty LLM responses:** After migrating models, nudge generation returned empty strings with no error. Root cause: `gpt-oss-20b` is a reasoning model that consumes part of its token budget on internal reasoning before producing output — the original `max_tokens=150` was too low. Fixed by raising `max_tokens=400` and setting `reasoning_effort="low"` to bias toward direct, fast output for this short-message use case.
+## Production Roadmap
 
-3. **Built-in runtime fallback:** If the Groq API call fails for any reason (rate limit, network issue, timeout) during actual operation, the system falls back to a safe template message rather than failing the transaction:
-```python
-   f"Hi {customer_name}, your payment of ₹{amount} didn't go through. Please retry: [LINK]"
-```
-   This was tested and confirmed working before the LLM integration was finalized.
+- Extend the verified single-transaction Razorpay path to the full batch pipeline
+- Replace simulated outcome probabilities with real Razorpay payment statuses at scale
+- Move from manual status refresh to Razorpay webhook events
+- Add durable state, distributed idempotency, retry scheduling, and monitoring for production use
 
-*(Add any Day 2-5 issues here as they happen)*
+## Why This Approach
 
----
+RecoverAI is not "send an LLM a failed payment and ask it what to do." Decisions, validation, communication, execution, and auditing are separated by design — so the system stays measurable, safe to rerun, and honest about what is simulated versus what is real.
 
-## 📊 Results
-
-*(Fill in after baseline comparison — Day 2)*
-
-| Metric                | Naive Baseline | RecoverAI   |
-|-----------------------|----------------|-------------|
-| Total failed payments | ₹751,199.28    | ₹751,199.28 |
-| ₹ Recovered           | ₹180,282.49    | ₹223,121.11 |
-| Recovery rate         | 24.0%          | 31.3%       |
-
-**RecoverAI recovers ₹42,838.62 more than a naive retry-all approach — a 7.3 percentage point improvement.**
-
----
-
-## 🚀 Live Demo
-
-*(Add Streamlit dashboard link/screenshot + link to 5-min pitch video once ready)*
-
-### Live Razorpay Test Recovery
-
-The dashboard includes a standalone "Live Razorpay Test Recovery" section that creates a **real Razorpay Test Mode Payment Link** for a single demo transaction — a genuine API call to Razorpay, not a simulation.
-
-This is completely isolated from the 150-transaction batch above: it does not affect Recovered Revenue, Recovery Rate, Incremental Revenue, or the naive baseline comparison shown in the Results table. It reads and writes only its own audit trail (`LIVE_RAZORPAY_DEMO_LINK_CREATED` / `LIVE_RAZORPAY_DEMO_STATUS_CHECKED` events, keyed off `LIVE-DEMO-*` transaction IDs), never the simulated batch's data.
-
-It was verified end-to-end with an actual test payment: clicking "Create Live Test Payment Link" creates a real link and logs its `created` status; a genuine Razorpay test-mode bank payment was then completed manually in a browser; clicking "Refresh Payment Status" re-queried Razorpay live, and the audit trail shows the real `created` → `paid` transition.
-
-- `src/razorpay_poc.py` — the initial standalone proof-of-concept: loads test-mode credentials, validates the `rzp_test_` key prefix, and creates one payment link via the REST API.
-- `src/razorpay_live_demo.py` — the dashboard-integrated version: same link creation, plus audit logging (`create_audit_event`) and a repeatable `check_and_update_status()` function that the dashboard's "Refresh Payment Status" button calls to re-check the live status on demand.
-
----
-
-## 🗺️ Production Roadmap — Razorpay Payment Links Integration
-
-The current pipeline simulates recovery outcomes with probability assumptions (see `probabilities.py`) rather than calling a real payment gateway. Wiring in real Razorpay **Test Mode** Payment Links is the next step post-submission, planned as a single, narrow integration rather than a rework of the existing decision logic:
-
-- **Proven at single-transaction scale; not yet wired into the batch.** A real Razorpay Test Mode Payment Link has already been created and tracked end-to-end — see "Live Razorpay Test Recovery" above — including a genuine `created` → `paid` status transition confirmed via a real test payment. This lives entirely in `src/razorpay_live_demo.py`, outside `simulate_outcomes.py`, and covers exactly one demo transaction at a time. What's still roadmap: wiring this same link-creation-and-status-check pattern into `simulate_outcomes.py` at the existing `send_nudge`/`retry_later` + `do_not_contact` gate (the same choke point `generate_nudge()` already uses) so all 150 batch transactions get real payment links instead of one demo transaction, and replacing `SUCCESS_PROBABILITY`'s simulated random draw with each transaction's real Razorpay status at scale.
-- **Real outcome instead of a simulated probability.** Once a real payment link exists, whether a transaction is `recovered` should come from the Razorpay link's actual status (paid / expired / cancelled), not from `SUCCESS_PROBABILITY`'s random draw — a real link with a fabricated "recovered" result would make the audit trail dishonest.
-- **Idempotent by construction.** Link creation reuses the same `event_exists()` guard pattern `audit.py` already uses for `FAILED_PAYMENT_RECEIVED` / `RECOVERY_OUTCOME`, so a re-run never creates a duplicate payment link for the same transaction. Razorpay's `reference_id` is set to `transaction_id` so it dedupes on their side too.
-- **Test-mode enforced, not assumed.** The integration checks that `RAZORPAY_KEY_ID` starts with `rzp_test_` and refuses to run otherwise — this repo has no other safeguard against accidentally using live keys.
-- **No changes to the decision logic.** `policy.py` and `rules.py` stay exactly as they are — they already own the eligibility/contact-cap rails, and Razorpay only needs to consume their output (`action`, `channel`), not duplicate it.
-- **Secrets handling.** `RAZORPAY_KEY_ID`/`RAZORPAY_KEY_SECRET` load via `.env`, the same way `GROQ_API_KEY` does today; never logged to `audit_events.csv`.
-
-The single-transaction proof above is implemented; wiring it into the full batch pipeline remains a plan only — not implemented in this submission.
+**Don't blindly retry everything. Decide what is safe, recover what is recoverable, and know exactly why every action happened.**
