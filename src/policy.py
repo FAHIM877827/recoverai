@@ -92,16 +92,6 @@ POLICIES = {
     },
 }
 
-# Global safety limits
-MAX_RETRIES_PER_TRANSACTION = 2
-MAX_NUDGES_PER_TRANSACTION = 1
-MAX_CONTACTS_PER_CUSTOMER = 3
-CONTACT_WINDOW_DAYS = 30
-COOLDOWN_HOURS = 24
-
-RISK_FAILURE_REASONS = {"fraud_blocked"}
-TERMINAL_FAILURE_REASONS = {"customer_cancelled"}
-
 
 def get_policy(failure_reason: str) -> dict:
     """

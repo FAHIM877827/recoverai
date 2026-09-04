@@ -12,6 +12,7 @@ from validators import validate_message
 from audit import create_audit_event, event_exists
 
 
+# Fixed seed keeps recovery outcomes reproducible and verifiable across demo runs.
 random.seed(42)
 
 
@@ -187,7 +188,7 @@ if __name__ == "__main__":
     )
 
     df["recovered_amount"] = df.apply(
-        lambda r: r["amount"] if r["recovered"] else 0,
+        lambda row: row["amount"] if row["recovered"] else 0,
         axis=1,
     )
 
@@ -196,9 +197,9 @@ if __name__ == "__main__":
     # ---------------------------------------------------------
 
     df["reasoning"] = df.apply(
-        lambda r: POLICY_REASONING.get(
-            r.get("policy_note", ""),
-            REASONING.get(r["action"], ""),
+        lambda row: POLICY_REASONING.get(
+            row.get("policy_note", ""),
+            REASONING.get(row["action"], ""),
         ),
         axis=1,
     )
@@ -216,7 +217,7 @@ if __name__ == "__main__":
                 f"{row['transaction_id']}"
             )
 
-            msg, source = generate_nudge(
+            message, source = generate_nudge(
                 row["customer_name"],
                 row["amount"],
                 row["failure_reason"],
@@ -227,7 +228,7 @@ if __name__ == "__main__":
             )
 
             return pd.Series(
-                [msg, source]
+                [message, source]
             )
 
         return pd.Series(
