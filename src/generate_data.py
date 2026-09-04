@@ -51,7 +51,7 @@ if __name__ == "__main__":
     df = generate_dataset()
     df.to_csv("failed_transactions.csv", index=False)
 
-    print(f"Generated {len(df)} records → failed_transactions.csv\n")
+    print(f"Generated {len(df)} records -> failed_transactions.csv\n")
     print("Failure reason distribution:")
     print(df["failure_reason"].value_counts())
     print("\nSample rows:")

@@ -13,9 +13,7 @@ When a customer's payment fails — expired card, insufficient funds, a network 
 RecoverAI turns this into a measurable recovery pipeline instead of a silent loss.
 
 **The headline result:**
-> Out of ₹[X] in failed payments, RecoverAI recovered ₹[Y] — a [Z]% recovery rate, compared to ₹[baseline] ([baseline%]) from a naive retry-everything-once approach.
-
-*(Fill in exact numbers once baseline comparison is done — Day 2)*
+> Out of ₹751,199.28 in failed payments, RecoverAI recovered ₹223,121.11 — a 31.3% recovery rate, compared to ₹180,282.49 (24.0%) from a naive retry-everything-once approach.
 
 ---
 
@@ -101,13 +99,28 @@ Every classifier decision also comes with a plain-English **reasoning trace** (e
 | Metric                | Naive Baseline | RecoverAI   |
 |-----------------------|----------------|-------------|
 | Total failed payments | ₹751,199.28    | ₹751,199.28 |
-| ₹ Recovered           | ₹155,655.25    | ₹289,426.62 |
-| Recovery rate         | 22.0%          | 40.0%       |
+| ₹ Recovered           | ₹180,282.49    | ₹223,121.11 |
+| Recovery rate         | 24.0%          | 31.3%       |
 
-**RecoverAI recovers ₹133,771.37 more than a naive retry-all approach — an 18 percentage point improvement.**
+**RecoverAI recovers ₹42,838.62 more than a naive retry-all approach — a 7.3 percentage point improvement.**
 
 ---
 
 ## 🚀 Live Demo
 
 *(Add Streamlit dashboard link/screenshot + link to 5-min pitch video once ready)*
+
+---
+
+## 🗺️ Production Roadmap — Razorpay Payment Links Integration
+
+The current pipeline simulates recovery outcomes with probability assumptions (see `probabilities.py`) rather than calling a real payment gateway. Wiring in real Razorpay **Test Mode** Payment Links is the next step post-submission, planned as a single, narrow integration rather than a rework of the existing decision logic:
+
+- **One integration point, at the existing gate.** Razorpay Payment Link creation plugs into `simulate_outcomes.py` at the point where a message is already about to be generated — i.e., only when `action` is `send_nudge` or `retry_later` *and* `do_not_contact` is `False`. This is the same choke point `generate_nudge()` already uses; the integration does not add a second, parallel eligibility check.
+- **Real outcome instead of a simulated probability.** Once a real payment link exists, whether a transaction is `recovered` should come from the Razorpay link's actual status (paid / expired / cancelled), not from `SUCCESS_PROBABILITY`'s random draw — a real link with a fabricated "recovered" result would make the audit trail dishonest.
+- **Idempotent by construction.** Link creation reuses the same `event_exists()` guard pattern `audit.py` already uses for `FAILED_PAYMENT_RECEIVED` / `RECOVERY_OUTCOME`, so a re-run never creates a duplicate payment link for the same transaction. Razorpay's `reference_id` is set to `transaction_id` so it dedupes on their side too.
+- **Test-mode enforced, not assumed.** The integration checks that `RAZORPAY_KEY_ID` starts with `rzp_test_` and refuses to run otherwise — this repo has no other safeguard against accidentally using live keys.
+- **No changes to the decision logic.** `policy.py` and `rules.py` stay exactly as they are — they already own the eligibility/contact-cap rails, and Razorpay only needs to consume their output (`action`, `channel`), not duplicate it.
+- **Secrets handling.** `RAZORPAY_KEY_ID`/`RAZORPAY_KEY_SECRET` load via `.env`, the same way `GROQ_API_KEY` does today; never logged to `audit_events.csv`.
+
+This is documented here as a plan only — not implemented in this submission.
